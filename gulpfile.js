@@ -4,7 +4,8 @@ var gulp = require('gulp'),
     mocha  = require('gulp-mocha');
     
 var paths = {
-  server: ['server.js', 'config/**/*.js', 'app/**/*.js']
+  server: ['server.js', 'config/**/*.js', 'app/**/*.js'],
+  test: ['app/**/*.spec.js'],
 }
     
 gulp.task('server', function() {
@@ -19,8 +20,8 @@ gulp.task('lintserver', function() {
 });
 
 gulp.task('test', function() {
-  return gulp.src('test/**/*.js')
-    .pipe(mocha({ reporter: 'spec' }))
+  return gulp.src(paths.test)
+    .pipe(mocha({ reporter: 'nyan' }))
     .once('end', function() { process.exit(); });
 });
 

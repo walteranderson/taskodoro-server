@@ -14,12 +14,7 @@ mongoose.connection.on('error', function () {
 var app = express();
 
 require('./config/express')(app);
-
-var routes = require('./app/routes/index');
-var users = require('./app/routes/users');
-
-app.use('/', routes);
-app.use('/users', users);
+require('./app/routes')(app);
 
 app.listen(config.server.port, function() {
   console.log('Express server listening on port ' + config.server.port);
