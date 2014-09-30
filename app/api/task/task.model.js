@@ -2,7 +2,10 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var TaskSchema = new Schema({
-  text: String,
+  text: {
+    type: String,
+    required: true
+  },
   completed: Boolean
 });
 
