@@ -10,6 +10,15 @@ exports.index = function(req, res) {
   
 };
 
+exports.show = function(req, res) {
+  Task.findById(req.params.id, function(err, task) {
+    if (err) { return handleError(res, err); }
+    if (!task) { return res.status(404); }
+      
+    res.status(200).json(task);
+  });
+};
+
 exports.create = function(req, res) {
   
   task = new Task(req.body);

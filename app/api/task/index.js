@@ -3,6 +3,7 @@ var router = require('express').Router(),
 
 router
   .get('/', controller.index)
+  .get('/:id', controller.show)
   .post('/', controller.create);
 
 module.exports = router;
