@@ -20,9 +20,13 @@ gulp.task('lintserver', function() {
 });
 
 gulp.task('test', function() {
+  process.env.NODE_ENV = 'test';
+  
   return gulp.src(paths.test)
     .pipe(mocha({ reporter: 'nyan' }))
     .once('end', function() { process.exit(); });
 });
 
 gulp.task('restart', ['lintserver']);
+
+gulp.task('default', ['lintserver', 'server']);

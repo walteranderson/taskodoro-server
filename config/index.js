@@ -5,17 +5,17 @@ var config = {
   development: {
     root: path.normalize(__dirname + '/../'),
     server: {
-      port: 3000,
+      port: 8000,
     },
     database: {
       url: 'mongodb://localhost/express_dev'
     }
   },
   
-  testing: {
+  test: {
     root: path.normalize(__dirname + '/../'),
     server: {
-      port: 3001
+      port: 8001
     },
     database: {
       url: 'mongodb://localhost/express_test'
