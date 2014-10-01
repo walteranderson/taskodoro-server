@@ -1,11 +1,11 @@
-var should = require('should'),
+var should  = require('should'),
     request = require('supertest'),
-    Task = require('./task.model'),
-    app = require('../../../server');
+    Task    = require('./task.model'),
+    app     = require('../../../server');
     
 describe('Task Routes', function() {
   
-  it('should return a json array', function() {
+  it('should return a json array', function(done) {
     request(app)
       .get('/api/tasks')
       .expect(200)
@@ -13,6 +13,7 @@ describe('Task Routes', function() {
       .end(function(err, res) {
         if (err) { return done(err); }
         res.body.should.be.instanceOf(Array);
+        done();
       });
   });
   
