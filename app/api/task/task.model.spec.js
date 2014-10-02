@@ -10,14 +10,14 @@ var task = new Task({
 describe('Task Model', function() {
   
   // remove any tasks before running the tests
-  before(function() {
+  before(function(done) {
     Task.remove().exec().then(function() {
       done();
     });
   });
   
   // remove tasks after running each test for a clean slate
-  afterEach(function() {
+  afterEach(function(done) {
     Task.remove().exec().then(function() {
       done();
     });
