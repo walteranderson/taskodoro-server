@@ -5,11 +5,29 @@ var User          = require('../app/api/user/user.model'),
 
 module.exports = function() {
   
-  passport.use(new LocalStrategy(
+  passport.use('local-signup', new LocalStrategy(
     function(username, password, done) {
-      User.findOne({username: username  }, function(err, user) {
+      User.findOne({ 'local.username': username }, function(err, user) {
         if (err) { done(err); }
+        if (user) { return done(null, false, { message: 'Username already exists' }); }
         
+        var newUser = new User();
+        newUser.local.username = username;
+        newUser.local.password = newUser.generateHash(password);
+        
+        newUser.save(function(err) {
+          if (err) { done(err); }
+          
+          return done(null, newUser);
+        });
+      });
+    }
+  ));
+  
+  passport.use('local-login', new LocalStrategy(
+    function(username, password, done) {
+      User.findOne({ 'local.username': username }, function(err, user) {
+        if (err) { done(err); }
         if (!user) {
           return done(null, false, { message: 'Incorrect username' });
         }
@@ -19,7 +37,7 @@ module.exports = function() {
         
         return done(null, user);
       });
-    }  
+    }
   ));
   
 };
