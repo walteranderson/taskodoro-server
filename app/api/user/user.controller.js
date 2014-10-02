@@ -1,4 +1,5 @@
-var User = require('./user.model');
+var User = require('./user.model'),
+    Task = require('../task/task.model');
 
 exports.index = function(req, res) {
   User.find(function(err, users) {

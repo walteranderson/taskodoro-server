@@ -19,7 +19,7 @@ exports.show = function(req, res) {
 
 exports.create = function(req, res) {
   
-  task = new Task(req.body);
+  var task = new Task(req.body);
   task.save(function(err, task) {
     if (err) { return handleError(res, err); }
     
