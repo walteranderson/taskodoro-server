@@ -16,7 +16,8 @@ var config = {
   test: {
     root: path.normalize(__dirname + '/../'),
     server: {
-      port: 8001
+      ip: process.env.IP || 'localhost',
+      port: process.env.PORT || 8001
     },
     database: {
       url: 'mongodb://localhost/express_test'

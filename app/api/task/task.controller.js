@@ -18,14 +18,13 @@ exports.show = function(req, res) {
 };
 
 exports.create = function(req, res) {
-  
   var task = new Task(req.body);
+  
   task.save(function(err, task) {
     if (err) { return handleError(res, err); }
     
     res.status(200).json(task);
   });
-  
 };
 
 function handleError(res, err) {
