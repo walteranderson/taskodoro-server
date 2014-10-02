@@ -5,7 +5,8 @@ var config = {
   development: {
     root: path.normalize(__dirname + '/../'),
     server: {
-      port: 8000,
+      ip: process.env.IP,
+      port: process.env.PORT
     },
     database: {
       url: 'mongodb://localhost/express_dev'

@@ -8,6 +8,7 @@ var config = require('./index');
 
 module.exports = function(app) {
   app.set('port', config.server.port);
+  app.set('domain', config.server.ip);
 
   // view engine setup
   app.set('views', config.root + 'app/views');
