@@ -30,7 +30,7 @@ describe('Task Model', function() {
     });
   });
   
-  it('should fail while saving duplicate users', function(done) {
+  it('should fail while saving duplicate tasks', function(done) {
     task.save(function() {
       var taskDup = new Task(task);
       taskDup.save(function(err) {
