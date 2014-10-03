@@ -6,7 +6,15 @@ var TaskSchema = new Schema({
     type: String,
     required: true
   },
-  completed: Boolean
+  completed: {
+    type: Boolean,
+    default: false
+  },
+  user: {
+    type: String,
+    ref: 'User',
+    required: true
+  }
 });
 
 module.exports = mongoose.model('Task', TaskSchema);
