@@ -1,3 +1,3 @@
 # Express Application
 
-Using TDD to build an node/express application.
+Building a full-stack Express application from the ground up.
