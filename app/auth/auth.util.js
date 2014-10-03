@@ -6,7 +6,7 @@ var config      = require('../../config/environments'),
 
 module.exports = {
   
-  ensureAuthentication: function() {
+  ensureAuth: function() {
     return compose()
       // validate JWT first
       .use(function(req, res, next) {

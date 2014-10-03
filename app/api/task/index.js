@@ -1,9 +1,10 @@
-var router = require('express').Router(),
-    controller = require('./task.controller');
+var router     = require('express').Router(),
+    controller = require('./task.controller'),
+    auth       = require('../../auth/auth.util');
 
 router
-  .get('/', controller.index)
-  .get('/:id', controller.show)
-  .post('/', controller.create);
+  .get('/', auth.ensureAuth(), controller.index)
+  .get('/:id', auth.ensureAuth(), controller.show)
+  .post('/', auth.ensureAuth(), controller.create);
 
 module.exports = router;
