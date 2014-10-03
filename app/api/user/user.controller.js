@@ -9,6 +9,10 @@ exports.index = function(req, res) {
   });
 };
 
+exports.show = function(req, res) {
+  res.send('SHOW!!');
+};
+
 function handleError(err, res) {
   res.status(500).send(err);
 }

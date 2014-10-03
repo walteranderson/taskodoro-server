@@ -23,8 +23,6 @@ module.exports = function(app) {
   app.use(passport.session());
   app.use(require('less-middleware')(config.root + 'public'));
   app.use(express.static(config.root + 'public'));
-  
-  app.use(require('./passport'));
 
   // error handlers
 
