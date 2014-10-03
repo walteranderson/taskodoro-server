@@ -9,6 +9,16 @@ var UserSchema = new Schema({
   }
 });
 
+UserSchema.pre('save', function(next) {
+  var user = this;
+  
+  if (!user.isNew) return next();
+  
+  var hash = user.generateHash(user.local.password);
+  user.local.password = hash;
+  next();
+});
+
 // generate hash
 UserSchema.methods.generateHash = function(password) {
   return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);

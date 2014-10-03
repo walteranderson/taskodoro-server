@@ -6,8 +6,12 @@ module.exports = function(app) {
   
   app.use('/auth', require('./auth'));
   
+  app.use('/login', function(req, res) {
+    res.render('login', { title: 'Login Page' });
+  });
+  
   app.use('/', function(req, res) {
-    res.send('hello world');
+    res.render('index', { title: 'Index Page' });
   });
   
 };

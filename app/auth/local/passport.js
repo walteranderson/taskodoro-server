@@ -3,7 +3,6 @@ var passport      = require('passport'),
     
 
 exports.setup = function(User) {
-  
   passport.use(new LocalStrategy(
     function(username, password, done) {
       User.findOne({ 'local.username': username }, function(err, user) {
@@ -11,6 +10,8 @@ exports.setup = function(User) {
         if (!user) {
           return done(null, false, { message: 'Incorrect username' });
         }
+        console.log(username);
+        console.log(password);
         if (!user.validPassword(password)) {
           return done(null, false, { message: 'Incorrect password' });
         }

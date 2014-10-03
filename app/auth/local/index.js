@@ -2,15 +2,20 @@ var router   = require('express').Router(),
     passport = require('passport');
     
 
-router.post('/', function(req, res, next) {
-  passport.authenticate('local', function(err, user, msg) {
-    var error = err || msg;
-    if (error) { res.status(401).json(error); }
-    if (!user) { res.status(401).json({ message: 'Something went wrong. Sorry.' }); }
-        
-    // TODO - send back express-jwt token, add helper method to auth.util
-    res.status(200).json('success');
-  });
+router.post('/', passport.authenticate('local', { session: false }), function(req, res) {
+  res.json({ user: req.user, sucess: 'success!' });
 });
 
 module.exports = router;
+
+
+
+
+// passport.authenticate('local', function(err, user, msg) {
+//   var error = err || msg;
+//   if (error) { res.json(401, error); }
+//   if (!user) { res.json(401, { message: 'Something went wrong. Sorry.' }); }
+//       
+//   // TODO - send back express-jwt token, add helper method to auth.util
+//   res.json('success');
+// })(req, res, next);

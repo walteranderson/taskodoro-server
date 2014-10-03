@@ -3,7 +3,8 @@ var router     = require('express').Router(),
     auth       = require('../../auth/auth.util');
 
 router
-  .get('/', controller.index)
-  .get('/:id', auth.ensureAuthentication, controller.show);
+  .get('/', auth.ensureAuthentication(), controller.index)
+  .get('/:id', auth.ensureAuthentication(), controller.show)
+  .post('/create', controller.create);
 
 module.exports = router;
