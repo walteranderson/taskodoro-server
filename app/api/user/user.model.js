@@ -3,13 +3,15 @@ var mongoose = require('mongoose'),
     Schema   = mongoose.Schema;
 
 var UserSchema = new Schema({
-  local: {
-    username: String,
-    password: {
-      type: String,
-      select: false
-    }
-  }
+  username: String,
+  password: {
+    type: String,
+    select: false
+  },
+  tasks: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Task'
+  }]
 });
 
 UserSchema.pre('save', function(next) {
@@ -17,8 +19,8 @@ UserSchema.pre('save', function(next) {
 
   if (!user.isNew) return next();
 
-  var hash = user.generateHash(user.local.password);
-  user.local.password = hash;
+  var hash = user.generateHash(user.password);
+  user.password = hash;
   next();
 });
 
@@ -29,7 +31,7 @@ UserSchema.methods.generateHash = function(password) {
 
 // check if password is valid
 UserSchema.methods.validPassword = function(password) {
-  return bcrypt.compareSync(password, this.local.password);
+  return bcrypt.compareSync(password, this.password);
 };
 
 module.exports = mongoose.model('User', UserSchema);
