@@ -1,9 +1,9 @@
 var path = require('path');
 
 var config = {
-  
+
   development: {
-    root: path.normalize(__dirname + '/../'),
+    root: path.normalize(__dirname + '/../../'),
     secrets: {
       session: 'taskodoro-secret-token-special'
     },
@@ -15,9 +15,9 @@ var config = {
       url: 'mongodb://localhost/express_dev'
     }
   },
-  
+
   test: {
-    root: path.normalize(__dirname + '/../'),
+    root: path.normalize(__dirname + '/../../'),
     secrets: {
       session: 'taskodoro-secret-token-special'
     },
@@ -29,9 +29,9 @@ var config = {
       url: 'mongodb://localhost/express_test'
     }
   },
-  
+
   production: {
-    root: path.normalize(__dirname + '/../'),
+    root: path.normalize(__dirname + '/../../'),
     secrets: {
       session: 'taskodoro-secret-token-special'
     },

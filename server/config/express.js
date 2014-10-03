@@ -11,7 +11,7 @@ module.exports = function(app) {
   app.set('domain', config.server.ip);
 
   // view engine setup
-  app.set('views', config.root + 'app/views');
+  app.set('views', config.root + 'server/views');
   app.set('view engine', 'jade');
 
   // app.use(favicon(__dirname + '/public/favicon.ico'));

@@ -1,7 +1,7 @@
 var should  = require('should'),
     request = require('supertest'),
     User    = require('./user.model'),
-    app     = require('../../../server');
+    app     = require('../../app');
 
 
 describe('User Routes', function() {

@@ -1,7 +1,7 @@
 var should  = require('should'),
     request = require('supertest'),
     Task    = require('./task.model'),
-    app     = require('../../../server');
+    app     = require('../../app');
 
 describe('Task Routes', function() {
   /*

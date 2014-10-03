@@ -4,12 +4,12 @@ var gulp    = require('gulp'),
     mocha   = require('gulp-mocha');
 
 var paths = {
-  server: ['server.js', 'config/**/*.js', 'app/**/*.js'],
-  test: ['app/**/*.spec.js'],
+  server: ['app.js', 'config/**/*.js', 'server/**/*.js'],
+  test: ['server/**/*.spec.js'],
 }
 
 gulp.task('server', function() {
-  nodemon({ script: 'server.js' })
+  nodemon({ script: 'server/app.js' })
     .on('change', ['restart']);
 });
 
