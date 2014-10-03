@@ -20,7 +20,6 @@ module.exports = function(app) {
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(cookieParser());
   app.use(passport.initialize());
-  app.use(passport.session());
   app.use(require('less-middleware')(config.root + 'public'));
   app.use(express.static(config.root + 'public'));
 
