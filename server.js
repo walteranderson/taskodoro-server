@@ -12,7 +12,7 @@ mongoose.connection.on('error', function () {
   console.log('mongodb connection error');
 });
 
-require('./config')(app);
+require('./config/express')(app);
 require('./app/routes')(app);
 
 app.listen(config.server.port, function() {
