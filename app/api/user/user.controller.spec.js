@@ -2,10 +2,10 @@ var should  = require('should'),
     request = require('supertest'),
     User    = require('./user.model'),
     app     = require('../../../server');
-    
-    
+
+
 describe('User Routes', function() {
-  
+  /*
   it('respond with 200', function(done) {
     request(app)
       .get('/api/users')
@@ -17,5 +17,5 @@ describe('User Routes', function() {
         done();
       });
   });
-  
+  */
 });
