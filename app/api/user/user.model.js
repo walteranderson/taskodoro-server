@@ -10,11 +10,7 @@ var UserSchema = new Schema({
   password: {
     type: String,
     select: false
-  },
-  tasks: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Task'
-  }]
+  }
 });
 
 UserSchema.pre('save', function(next) {
