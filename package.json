@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "gulp",
-    "test": "./node_modules/.bin/mocha --reporter nyan"
+    "test": "gulp test"
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",

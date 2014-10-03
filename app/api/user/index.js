@@ -4,6 +4,7 @@ var router     = require('express').Router(),
 
 router
   .get('/', auth.ensureAuth(), controller.index)
+  .get('/me', auth.ensureAuth(), controller.me)
   .get('/:id', auth.ensureAuth(), controller.show)
   .post('/create', controller.create);
 
