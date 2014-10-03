@@ -7,10 +7,13 @@ var express      = require('express'),
     config       = require('./environments');
 
 module.exports = function(app) {
+  // so that I can run tests on a separate port
+  // and so c9 doesn't freak out
   app.set('port', config.server.port);
   app.set('domain', config.server.ip);
 
   // view engine setup
+  // necessary for api?
   app.set('views', config.root + 'server/views');
   app.set('view engine', 'jade');
 
@@ -18,12 +21,20 @@ module.exports = function(app) {
   app.use(logger('dev'));
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
+
+  // cookieParse probably not necessary
   app.use(cookieParser());
   app.use(passport.initialize());
+
+  // compile less
   app.use(require('less-middleware')(config.root + 'public'));
+
+  // serve assets stored in the public folder
   app.use(express.static(config.root + 'public'));
 
+
   // error handlers
+  // maybe try to move these to routes?
 
   if (app.get('env') === 'development') {
       app.use(function(err, req, res, next) {
@@ -34,7 +45,6 @@ module.exports = function(app) {
           });
       });
   }
-
   app.use(function(err, req, res, next) {
       res.status(err.status || 500);
       res.render('error', {
