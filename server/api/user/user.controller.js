@@ -5,6 +5,7 @@ var auth = require('../../auth/auth.util'),
  * GET all users
  */
 exports.index = function(req, res) {
+
   User.find()
     .exec(function(err, users) {
       if (err) return handleError(err, res);
@@ -12,6 +13,7 @@ exports.index = function(req, res) {
 
       return res.json(users);
     });
+
 };
 
 /**
@@ -26,6 +28,7 @@ exports.create = function(req, res) {
     var token = auth.signToken(user._id);
     return res.json({ token: token });
   });
+
 };
 
 /**
@@ -42,6 +45,7 @@ exports.show = function(req, res) {
 
       return res.json(user);
     });
+
 };
 
 /**
@@ -49,12 +53,14 @@ exports.show = function(req, res) {
  * params: id
  */
 exports.destroy = function(req, res) {
+
   User.findByIdAndRemove(req.params.id)
     .exec(function(err) {
       if (err) return handleError(res, err);
 
       return res.status(204);
     });
+
 };
 
 /**
@@ -70,13 +76,29 @@ exports.me = function(req, res) {
 
       res.json(user);
     });
+
 };
 
 /**
  * POST change password
  */
 exports.changePassword = function(req, res) {
-  // TODO
+  var userId  = req.user._id,
+      oldPass = String(req.body.oldPassword),
+      newPass = String(req.body.newPassword);
+
+  User.findById(userId)
+    .exec(function(err, user) {
+      if(!user.validPassword) return res.status(403);
+
+      user.password = newPass;
+      user.save(function(err) {
+        if (err) return handleError(err, res);
+
+        return res.status(200);
+      });
+    });
+
 };
 
 function handleError(err, res) {

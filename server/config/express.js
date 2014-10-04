@@ -18,7 +18,12 @@ module.exports = function(app) {
   app.set('view engine', 'jade');
 
   // app.use(favicon(__dirname + '/public/favicon.ico'));
-  app.use(logger('dev'));
+
+  // only log requests if we're not testing
+  if (app.get('env') !== 'test') {
+    app.use(logger('dev'));
+  }
+
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
 
