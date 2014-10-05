@@ -1,12 +1,16 @@
-var path = require('path');
+var path = require('path'),
+    _    = require('lodash');
+
+var all = {
+  root: path.normalize(__dirname + '/../../'),
+  secrets: {
+    session: 'taskodoro-secret-token-special'
+  }
+};
 
 var config = {
 
   development: {
-    root: path.normalize(__dirname + '/../../'),
-    secrets: {
-      session: 'taskodoro-secret-token-special'
-    },
     server: {
       ip: process.env.IP || 'localhost',
       port: process.env.PORT || 8000
@@ -15,12 +19,7 @@ var config = {
       url: 'mongodb://localhost/express_dev'
     }
   },
-
   test: {
-    root: path.normalize(__dirname + '/../../'),
-    secrets: {
-      session: 'taskodoro-secret-token-special'
-    },
     server: {
       ip: process.env.IP || 'localhost',
       port: process.env.PORT || 8001
@@ -29,12 +28,7 @@ var config = {
       url: 'mongodb://localhost/express_test'
     }
   },
-
   production: {
-    root: path.normalize(__dirname + '/../../'),
-    secrets: {
-      session: 'taskodoro-secret-token-special'
-    },
     server: {
       port: 8080
     },
@@ -42,6 +36,7 @@ var config = {
       url: 'mongodb://localhost/express'
     }
   }
+
 };
 
-module.exports = config[process.env.NODE_ENV || 'development'];
+module.exports = _.merge(all, config[process.env.NODE_ENV || 'development']);
