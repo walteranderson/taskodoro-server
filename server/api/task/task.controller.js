@@ -76,7 +76,7 @@ exports.destroy = function(req, res) {
 
       task.remove(function(err) {
         if (err) return handleError(res, err);
-        return res.status(204);
+        return res.status(204).end();
       });
     });
 

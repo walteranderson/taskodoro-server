@@ -8,6 +8,6 @@ router
   .get('/me', auth.ensureAuth(), controller.me)
   .post('/:id/password', auth.ensureAuth(), controller.changePassword)
   .get('/:id', auth.ensureAuth(), controller.show)
-  .delete('/:id', controller.destroy);
+  .delete('/:id', auth.ensureAuth(), controller.destroy);
 
 module.exports = router;

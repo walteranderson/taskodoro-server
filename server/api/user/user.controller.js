@@ -63,10 +63,10 @@ exports.show = function(req, res) {
  */
 exports.destroy = function(req, res) {
   User.findByIdAndRemove(req.params.id)
-    .exec(function(err) {
+    .exec(function(err, user) {
       if (err) return handleError(res, err);
 
-      return res.status(204);
+      return res.status(204).end();
     });
 
 };
@@ -97,13 +97,13 @@ exports.changePassword = function(req, res) {
 
   User.findById(userId)
     .exec(function(err, user) {
-      if(!user.validPassword) return res.status(403);
+      if(!user.validPassword(oldPass)) return res.status(403).end();
 
-      user.password = newPass;
+      user.password = user.generateHash(newPass);
       user.save(function(err) {
         if (err) return handleError(err, res);
 
-        return res.status(200);
+        return res.status(200).end();
       });
     });
 

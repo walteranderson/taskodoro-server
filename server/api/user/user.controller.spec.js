@@ -132,7 +132,7 @@ describe('User API', function() {
    describe('DELETE /api/users/:id', function() {
     var deleteUser;
 
-    // before(postValidCreds);
+    before(postValidCreds);
     before(function(done) {
       deleteUser = new User({
         username: 'iWill',
@@ -144,26 +144,21 @@ describe('User API', function() {
       });
     });
 
-    /*it('should remove the user from the database', function(done) {
+    it('should not exist after deleting', function(done) {
       request(app)
         .delete('/api/users/' + deleteUser._id)
-        // .set('authorization', 'Bearer ' + token)
+        .set('authorization', 'Bearer ' + token)
         .end(function(err, res) {
           if (err) return done(err);
 
-          res.should.have.status(204);
-        });
-        // .end(function(err, res) {
-        //   if (err) return done(err);
+          User.findById(deleteUser._id)
+            .exec(function(err, user) {
 
-        //   User.findById(deleteUser._id)
-        //     .exec(function(err, user) {
-        //       console.log(err);
-        //       should.exist(err);
-        //       done();
-        //     });
-        // });
-    });*/
+              should.not.exist(user);
+              done();
+            });
+        });
+    });
 
    });
 
@@ -199,6 +194,56 @@ describe('User API', function() {
   /**
    * Change Password
    */
-  describe('POST /api/users/:id/password', function() {});
+  describe('POST /api/users/:id/password', function() {
+    var newPasswordData;
+
+    before(postValidCreds);
+
+    // make sure the newPasswordData stays the same for each test
+    beforeEach(function() {
+      newPasswordData = {
+        oldPassword: 'testPassword',
+        newPassword: 'newPassword'
+      };
+    });
+
+    it('should respond with a 401 if not authenticated', function(done) {
+      request(app)
+        .post('/api/users/' + loggedInUser._id + '/password')
+        .expect(401)
+        .end(done);
+    });
+
+    it('should respond with 403 if you give it the wrong old password', function(done) {
+      newPasswordData.oldPassword = 'wrongPassword';
+
+      request(app)
+        .post('/api/users/' + loggedInUser._id + '/password')
+        .set('authorization', 'Bearer ' + token)
+        .send(newPasswordData)
+        .expect(403)
+        .end(done);
+    });
+
+    it('should successfully change the password', function(done) {
+      request(app)
+        .post('/api/users/' + loggedInUser._id + '/password')
+        .set('authorization', 'Bearer ' + token)
+        .send(newPasswordData)
+        .expect(200)
+        .end(function(err, res) {
+          if (err) return done(err);
+
+          User.findById(loggedInUser._id)
+            .exec(function(err, user) {
+              if (err) return done(err);
+
+              user.validPassword(newPasswordData.newPassword).should.equal(true);
+              done();
+            });
+        });
+    });
+
+  });
 
 });
