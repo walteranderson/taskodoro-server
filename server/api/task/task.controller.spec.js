@@ -3,31 +3,30 @@ var should  = require('should'),
     Task    = require('./task.model'),
     app     = require('../../app');
 
-describe('Task Routes', function() {
-  /*
-  it('should return a json array', function(done) {
+describe('Task API', function() {
+  var loggedInUser;
+  var loginUserData = {
+      username: 'testUser',
+      password: 'testPassword'
+  };
+  
+  // Login and save token
+  function postValidCreds(done) {
     request(app)
-      .get('/api/tasks')
+      .post('/auth/local')
+      .send(loginUserData)
       .expect(200)
       .expect('Content-Type', /json/)
       .end(function(err, res) {
-        if (err) { return done(err); }
-        res.body.should.be.instanceOf(Array);
+        if (err) return done(err);
+
+        token = res.body.token;
         done();
       });
-  });
-
-  it('should return a single task instance', function(done) {
-    var id = '542a1fc46c0091663b8f6f07';
-
-    request(app)
-      .get('/api/tasks/' + id)
-      .expect(200)
-      .expect('Content-Type', /json/)
-      .end(function(err, res) {
-        if (err) { return done(err); }
-        res.body.should.be.instanceOf(Object);
-      });
-  });
-  */
+  }
+  
+  before(function(done) {});
+  
+  describe('GET /api/tasks/', function() {});
+  
 });
