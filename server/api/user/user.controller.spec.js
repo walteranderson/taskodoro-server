@@ -144,7 +144,7 @@ describe('User API', function() {
       });
     });
 
-    it('should remove the user from the database', function(done) {
+    /*it('should remove the user from the database', function(done) {
       request(app)
         .delete('/api/users/' + deleteUser._id)
         // .set('authorization', 'Bearer ' + token)
@@ -153,17 +153,17 @@ describe('User API', function() {
 
           res.should.have.status(204);
         });
-        /*.end(function(err, res) {
-          if (err) return done(err);
+        // .end(function(err, res) {
+        //   if (err) return done(err);
 
-          User.findById(deleteUser._id)
-            .exec(function(err, user) {
-              console.log(err);
-              should.exist(err);
-              done();
-            });
-        });*/
-    });
+        //   User.findById(deleteUser._id)
+        //     .exec(function(err, user) {
+        //       console.log(err);
+        //       should.exist(err);
+        //       done();
+        //     });
+        // });
+    });*/
 
    });
 
@@ -199,6 +199,6 @@ describe('User API', function() {
   /**
    * Change Password
    */
-   describe('POST /api/users/password', function() {});
+  describe('POST /api/users/:id/password', function() {});
 
 });

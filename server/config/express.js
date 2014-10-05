@@ -24,7 +24,6 @@ module.exports = function(app) {
   if (app.get('env') !== 'test') {
     app.use(logger('dev'));
   }
-  app.use(logger('dev'));
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(methodOverride());
