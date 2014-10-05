@@ -78,7 +78,7 @@ describe('User API', function() {
   /**
    * Create
    */
-  describe('POST /api/users/create', function() {
+  describe('POST /api/users/', function() {
     var newUser = {
       username: 'newUser',
       password: 'newPassword'
@@ -86,7 +86,7 @@ describe('User API', function() {
 
     it('should return a token on create', function(done) {
       request(app)
-        .post('/api/users/create')
+        .post('/api/users')
         .send(newUser)
         .end(function(err, res) {
           if (err) return done(err);
@@ -119,6 +119,7 @@ describe('User API', function() {
         .expect('Content-Type', /json/)
         .end(function(err, res) {
           if (err) return done(err);
+
           res.body._id.should.equal(loggedInUser._id.toString());
           done();
         });
@@ -128,7 +129,43 @@ describe('User API', function() {
   /**
    * Destroy
    */
-   describe('DELETE /api/users/:id', function() {});
+   describe('DELETE /api/users/:id', function() {
+    var deleteUser;
+
+    // before(postValidCreds);
+    before(function(done) {
+      deleteUser = new User({
+        username: 'iWill',
+        password: 'beDeleted'
+      });
+      deleteUser.save(function(err, user) {
+        if (err) return done(err);
+        done();
+      });
+    });
+
+    it('should remove the user from the database', function(done) {
+      request(app)
+        .delete('/api/users/' + deleteUser._id)
+        // .set('authorization', 'Bearer ' + token)
+        .end(function(err, res) {
+          if (err) return done(err);
+
+          res.should.have.status(204);
+        });
+        /*.end(function(err, res) {
+          if (err) return done(err);
+
+          User.findById(deleteUser._id)
+            .exec(function(err, user) {
+              console.log(err);
+              should.exist(err);
+              done();
+            });
+        });*/
+    });
+
+   });
 
   /**
    * Me

@@ -4,10 +4,10 @@ var router     = require('express').Router(),
 
 router
   .get('/', auth.ensureAuth(), controller.index)
+  .post('/', controller.create)
   .get('/me', auth.ensureAuth(), controller.me)
+  .post('/:id/password', auth.ensureAuth(), controller.changePassword)
   .get('/:id', auth.ensureAuth(), controller.show)
-  .post('/password', auth.ensureAuth(), controller.changePassword)
-  .post('/create', controller.create)
   .delete('/:id', controller.destroy);
 
 module.exports = router;

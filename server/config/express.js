@@ -1,10 +1,11 @@
-var express      = require('express'),
-    favicon      = require('serve-favicon'),
-    logger       = require('morgan'),
-    cookieParser = require('cookie-parser'),
-    bodyParser   = require('body-parser'),
-    passport     = require('passport'),
-    config       = require('./environments');
+var express        = require('express'),
+    favicon        = require('serve-favicon'),
+    logger         = require('morgan'),
+    cookieParser   = require('cookie-parser'),
+    bodyParser     = require('body-parser'),
+    methodOverride = require('method-override'),
+    passport       = require('passport'),
+    config         = require('./environments');
 
 module.exports = function(app) {
   // so that I can run tests on a separate port
@@ -23,12 +24,14 @@ module.exports = function(app) {
   if (app.get('env') !== 'test') {
     app.use(logger('dev'));
   }
-
+  app.use(logger('dev'));
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(methodOverride());
 
   // cookieParse probably not necessary
   app.use(cookieParser());
+
   app.use(passport.initialize());
 
   // compile less

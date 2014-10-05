@@ -4,6 +4,8 @@ var router     = require('express').Router(),
 router
   .get('/', controller.index)
   .get('/:id', controller.show)
-  .post('/', controller.create);
+  .post('/', controller.create)
+  .put('/:id', controller.update)
+  .delete('/:id', controller.destroy);
 
 module.exports = router;

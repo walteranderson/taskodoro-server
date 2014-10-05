@@ -1,6 +1,17 @@
+/**
+ * GET     /tasks              ->  index
+ * POST    /tasks              ->  create
+ * GET     /tasks/:id          ->  show
+ * PUT     /tasks/:id          ->  update
+ * DELETE  /tasks/:id          ->  destroy
+ */
+
 var Task = require('./task.model'),
     _    = require('lodash');
 
+/**
+ * GET all tasks
+ */
 exports.index = function(req, res) {
 
   Task.find()
@@ -14,6 +25,9 @@ exports.index = function(req, res) {
 
 };
 
+/**
+ * POST create task
+ */
 exports.create = function(req, res) {
 
   var newTask = new Task(req.body);
@@ -27,6 +41,9 @@ exports.create = function(req, res) {
 
 };
 
+/**
+ * GET show one task
+ */
 exports.show = function(req, res) {
 
   Task.findById(req.params.id)
@@ -40,10 +57,16 @@ exports.show = function(req, res) {
 
 };
 
+/**
+ * PUT update task
+ */
 exports.update = function(req, res) {
   // TODO
 };
 
+/**
+ * DELETE task
+ */
 exports.destroy = function(req, res) {
 
   Task.findById(req.params.id)

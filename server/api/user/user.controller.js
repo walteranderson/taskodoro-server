@@ -1,3 +1,12 @@
+/**
+ * GET     /users              ->  index
+ * POST    /users              ->  create
+ * GET     /users/me           ->  get logged in user
+ * GET     /users/:id          ->  show
+ * POST    /users/:id/password ->  change password
+ * DELETE  /users/:id          ->  destroy
+ */
+
 var auth = require('../../auth/auth.util'),
     User = require('./user.model');
 
@@ -53,7 +62,6 @@ exports.show = function(req, res) {
  * params: id
  */
 exports.destroy = function(req, res) {
-
   User.findByIdAndRemove(req.params.id)
     .exec(function(err) {
       if (err) return handleError(res, err);
