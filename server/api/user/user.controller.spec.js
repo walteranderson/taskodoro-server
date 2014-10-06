@@ -33,7 +33,9 @@ describe('User API', function() {
 
       loggedInUser.save(function(err) {
         if (err) return done(err);
-        done();
+
+        // login in and save the user token
+        postValidCreds(done);
       });
     });
   });
@@ -49,8 +51,6 @@ describe('User API', function() {
    * Index
    */
   describe('GET /api/users/',function() {
-
-    before(postValidCreds);
 
     it('should respond with a 401 if not authenticated', function(done) {
       request(app)
@@ -102,8 +102,6 @@ describe('User API', function() {
    */
   describe('GET /api/users/:id', function() {
 
-    before(postValidCreds);
-
     it('should respond with 401 if not authenticated', function(done) {
       request(app)
         .get('/api/users/' + loggedInUser._id)
@@ -132,7 +130,6 @@ describe('User API', function() {
    describe('DELETE /api/users/:id', function() {
     var deleteUser;
 
-    before(postValidCreds);
     before(function(done) {
       deleteUser = new User({
         username: 'iWill',
@@ -167,8 +164,6 @@ describe('User API', function() {
    */
   describe('GET /api/users/me', function() {
 
-    before(postValidCreds);
-
     it('should respond with a 401 if not authenticated', function(done) {
       request(app)
         .get('/api/users/me')
@@ -196,8 +191,6 @@ describe('User API', function() {
    */
   describe('POST /api/users/:id/password', function() {
     var newPasswordData;
-
-    before(postValidCreds);
 
     // make sure the newPasswordData stays the same for each test
     beforeEach(function() {
@@ -243,7 +236,6 @@ describe('User API', function() {
             });
         });
     });
-
   });
 
-});
+});//END User API
