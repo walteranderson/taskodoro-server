@@ -28,9 +28,9 @@ gulp.task('test', function() {
     .once('end', function() { process.exit(); });
 });
 
-gulp.task('coverage', function(done) {
+gulp.task('coverage', function() {
   process.env.NODE_ENV = 'test';
-  
+
   gulp.src(paths.server)
     .pipe(istanbul())
     .on('finish', function() {
@@ -38,10 +38,10 @@ gulp.task('coverage', function(done) {
         .pipe(mocha({ reporter: 'spec' }))
         .pipe(istanbul.writeReports({
           dir: './coverage',
-          reporters: [ 'lcov' ],
+          reporters: [ 'lcov', 'text', 'text-summary' ],
           reportOpts: { dir: './coverage' }
         }))
-        .on('end', done);
+        .once('end', function() { process.exit(); });
     });
 });
 
