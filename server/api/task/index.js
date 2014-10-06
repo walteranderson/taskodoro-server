@@ -1,6 +1,7 @@
 var router     = require('express').Router(),
     controller = require('./task.controller');
 
+// All routes protected by auth
 router
   .get('/', controller.index)
   .get('/:id', controller.show)

@@ -24,7 +24,7 @@ gulp.task('test', function() {
   process.env.NODE_ENV = 'test';
 
   return gulp.src(paths.test)
-    .pipe(mocha({ reporter: 'spec' }))
+    .pipe(mocha({ reporter: 'nyan' }))
     .once('end', function() { process.exit(); });
 });
 
