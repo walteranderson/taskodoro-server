@@ -61,7 +61,22 @@ exports.show = function(req, res) {
  * PUT update task
  */
 exports.update = function(req, res) {
-  // TODO
+  if (req.body._id) { delete req.body._id; }
+
+  Task.findById(req.params.id)
+    .where('user').equals(req.user._id)
+    .exec(function(err, task) {
+      if (err) return handleError(err, res);
+      if (!task) return res.status(404);
+
+      // merge the task with the updated info
+      var updated = _.merge(task, req.body);
+      updated.save(function(err, task) {
+        if (err) return handleError(err, res);
+
+        res.json(task);
+      });
+    });
 };
 
 /**

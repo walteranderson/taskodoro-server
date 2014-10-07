@@ -157,7 +157,60 @@ describe('Task API', function() {
   /**
    * Update
    */
-  describe('PUT /api/tasks/:id', function() {});
+  describe('PUT /api/tasks/:id', function() {
+    var task = {
+      text: 'new task'
+    };
+
+    // add a new task for the logged in user
+    // TODO - use Task model instead of api
+    before(function(done) {
+      request(app)
+        .post('/api/tasks')
+        .set('authorization', 'Bearer ' + token)
+        .send(task)
+        .expect(200)
+        .end(function(err, res) {
+          if (err) return done(err);
+
+          // set the created task to include its ID and user info
+          task = res.body;
+          done();
+        });
+    });
+
+    it('should respond with a 401 if not authenticated', function(done) {
+      request(app)
+        .get('/api/tasks/' + task._id)
+        .expect(401)
+        .end(done);
+    });
+
+    it('should update the task text', function(done) {
+      var newTask = {
+        text: 'updated'
+      };
+
+      request(app)
+        .put('/api/tasks/' + task._id)
+        .send(newTask)
+        .set('authorization', 'Bearer ' + token)
+        .expect(200)
+        .end(function(err, res) {
+          if (err) return done(err);
+
+          Task.findById(res.body._id)
+            .exec(function(err, task) {
+              if (err) return done(err);
+              (task === null).should.be.equal(false);
+
+              task.text.should.equal(newTask.text);
+              done();
+            });
+        });
+    });
+
+  });
 
   /**
    * Delete
