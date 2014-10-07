@@ -35,8 +35,10 @@ describe('Task API', function() {
       loggedInUser.save(function(err) {
         if (err) return done(err);
 
-        // login in and save the user token
-        postValidCreds(done);
+        Task.remove().exec().then(function() {
+          // login in and save the user token
+          postValidCreds(done);
+        });
       });
     });
   });
@@ -44,7 +46,9 @@ describe('Task API', function() {
   // remove all users after all tests are run
   after(function(done) {
     User.remove().exec().then(function() {
-      done();
+      Task.remove().exec().then(function() {
+        done();
+      });
     });
   });
 
@@ -158,6 +162,39 @@ describe('Task API', function() {
   /**
    * Delete
    */
-  describe('DELETE /api/tasks/:id', function() {});
+  describe('DELETE /api/tasks/:id', function() {
+    var deleteTask;
+
+    before(function(done) {
+      deleteTask = new Task({
+        text: 'task',
+        'user': loggedInUser._id
+      });
+
+      deleteTask.save(function(err, task) {
+        if (err) return done(err);
+        done();
+      });
+    });
+
+    it('should not exist after deleting', function(done) {
+      request(app)
+        .delete('/api/tasks/' + deleteTask._id)
+        .set('authorization', 'Bearer ' + token)
+        .expect(204)
+        .end(function(err, res) {
+          if (err) return done(err);
+
+          Task.findById(deleteTask._id)
+            .exec(function(err, task) {
+              if (err) return done(err);
+
+              should.not.exist(task);
+              done();
+            });
+        });
+    });
+
+  });
 
 });

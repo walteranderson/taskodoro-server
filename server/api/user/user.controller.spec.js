@@ -150,6 +150,7 @@ describe('User API', function() {
 
           User.findById(deleteUser._id)
             .exec(function(err, user) {
+              if (err) return done(err);
 
               should.not.exist(user);
               done();
