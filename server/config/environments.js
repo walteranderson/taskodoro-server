@@ -33,7 +33,7 @@ var config = {
       port: 8080
     },
     database: {
-      url: 'mongodb://localhost/express'
+      url: 'mongodb://admin:mongohqQCqv93@linus.mongohq.com:10037/app30507526'
     }
   }
 
