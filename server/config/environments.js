@@ -33,7 +33,7 @@ var config = {
       port: 8080
     },
     database: {
-      url: process.env.MONGOHQ_URL || 'mongodb://admin:mongohqQCqv93@linus.mongohq.com:10037/app30507526'
+      url: process.env.MONGOHQ_URL || 'mongodb://heroku:UNRpgq_cqwlygubgCoVlscVvI_c08KqbHdlU1wNYT_VoFxBHNSwWHMh4nr6CGMwZLTEaLXgn4xRA0heX_fBZ4g@linus.mongohq.com:10037/app30507526'
     }
   }
 
