@@ -11,6 +11,7 @@ mongoose.connect(config.database.url);
 mongoose.connection.on('error', function () {
   console.log('mongodb connection error');
   console.log(process.env.MONGOHQ_URL);
+  console.log(process.env.NODE_ENV);
   console.log(config);
 });
 
