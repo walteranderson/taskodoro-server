@@ -10,8 +10,8 @@ var express  = require('express'),
 mongoose.connect(config.database.url);
 mongoose.connection.on('error', function () {
   console.log('mongodb connection error');
-  console.log(config.database.url);
   console.log(process.env.MONGOHQ_URL);
+  console.log(config);
 });
 
 require('./config/express')(app);
