@@ -52,6 +52,32 @@
 
       isLoggedIn: function() {
         return currentUser.hasOwnProperty('_id');
+      },
+
+      isLoggedInAsync: function(cb) {
+        if (currentUser.hasOwnProperty('$promise')) {
+          // check the promise and return boolean
+          currentUser.$promise.then(function() {
+            cb(true);
+          })
+          .catch(function() {
+            cb(false);
+          });
+
+        } else if (currentUser.hasOwnProperty('_id')) {
+          // user exists and is logged in
+          cb(true);
+        } else {
+          // user not logged in
+          cb(false);
+        }
+      },
+
+      changePassword: function(oldPassword, newPassword) {
+        return User.changePassword({ id: currentUser._id }, {
+          oldPassword: oldPassword,
+          newPassword: newPassword
+        }).$promise;
       }
     };
 

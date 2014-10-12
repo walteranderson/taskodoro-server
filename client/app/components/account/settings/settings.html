@@ -1,0 +1,15 @@
+<div ng-controller="SettingsCtrl">
+  <h2>Change Password</h2>
+  <form novalidate>
+    {{ message }}
+    <div>
+      <label for="oldPassword">Old Password</label><br/>
+      <input type="password" name="oldPassword" ng-model="user.oldPassword">
+    </div>
+    <div>
+      <label for="newPassword">New Password</label><br/>
+      <input type="password" name="newPassword" ng-model="user.newPassword">
+    </div>
+    <button ng-click="changePassword(user)">Submit</button>
+  </form>
+</div>

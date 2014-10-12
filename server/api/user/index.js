@@ -6,7 +6,7 @@ router
   .get('/', auth.ensureAuth(), controller.index)
   .post('/', controller.create)
   .get('/me', auth.ensureAuth(), controller.me)
-  .post('/:id/password', auth.ensureAuth(), controller.changePassword)
+  .put('/:id/password', auth.ensureAuth(), controller.changePassword)
   .get('/:id', auth.ensureAuth(), controller.show)
   .delete('/:id', auth.ensureAuth(), controller.destroy);
 

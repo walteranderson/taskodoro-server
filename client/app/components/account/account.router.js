@@ -12,6 +12,12 @@
         url: '/register',
         templateUrl: 'app/components/account/register/register.html',
         controller: 'RegisterCtrl'
+      })
+      .state('settings', {
+        url: '/settings',
+        templateUrl: 'app/components/account/settings/settings.html',
+        controller: 'SettingsCtrl',
+        authenticate: true
       });
   }
 
