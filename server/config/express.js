@@ -24,8 +24,7 @@ module.exports = function(app) {
   app.use(passport.initialize());
 
   // serve assets stored in the public folder
-  app.use(express.static(config.root + 'public'));
-
+  app.use(express.static(config.root + config.staticAssets));
 
   // error handlers
   // maybe try to move these to routes?

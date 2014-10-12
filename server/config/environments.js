@@ -17,7 +17,8 @@ var config = {
     },
     database: {
       url: 'mongodb://localhost/express_dev'
-    }
+    },
+    staticAssets: 'client'
   },
   test: {
     server: {
@@ -26,7 +27,8 @@ var config = {
     },
     database: {
       url: 'mongodb://localhost/express_test'
-    }
+    },
+    staticAssets: 'client'
   },
   production: {
     server: {
@@ -35,7 +37,8 @@ var config = {
     },
     database: {
       url: process.env.MONGOHQ_URL || 'mongodb://heroku:UNRpgq_cqwlygubgCoVlscVvI_c08KqbHdlU1wNYT_VoFxBHNSwWHMh4nr6CGMwZLTEaLXgn4xRA0heX_fBZ4g@linus.mongohq.com:10037/app30507526'
-    }
+    },
+    staticAssets: 'public'
   }
 
 };

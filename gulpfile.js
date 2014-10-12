@@ -1,29 +1,32 @@
-var gulp     = require('gulp'),
-    nodemon  = require('gulp-nodemon'),
-    jshint   = require('gulp-jshint'),
-    mocha    = require('gulp-mocha'),
-    istanbul = require('gulp-istanbul');
-
-var paths = {
-  server: ['app.js', 'config/**/*.js', 'server/**/*.js'],
-  test: ['server/**/*.spec.js'],
-};
-
-gulp.task('server', function() {
-  nodemon({ script: 'server/app.js' })
-    .on('change', ['restart']);
-});
-
-gulp.task('lint', function() {
-  return gulp.src(paths.server)
-    .pipe(jshint())
-    .pipe(jshint.reporter('jshint-stylish'));
-});
+var gulp       = require('gulp'),
+    nodemon    = require('gulp-nodemon'),
+    jshint     = require('gulp-jshint'),
+    mocha      = require('gulp-mocha'),
+    istanbul   = require('gulp-istanbul'),
+    inject     = require('gulp-inject'),
+    concat     = require('gulp-concat'),
+    less       = require('gulp-less'),
+    bowerFiles = require('main-bower-files'),
+    paths = {
+      js: {
+        server: ['server/*.js', 'server/**/*.js'],
+        client: ['client/app/*.js', 'client/app/**/*.js'],
+        test: ['server/**/*.spec.js']
+      },
+      less: ['client/app/*.less', 'client/app/**/*.less'],
+      templates: ['!client/app/index.html', 'client/app/**/*.html'],
+      client: ['client/*.*', 'client/app/*.*', 'client/app/**/*.*']
+    },
+    destinations = {
+      templates: './public/templates',
+      js: './public/js',
+      css: './public/css'
+    };
 
 gulp.task('test', function() {
   process.env.NODE_ENV = 'test';
 
-  return gulp.src(paths.test)
+  return gulp.src(paths.js.test)
     .pipe(mocha({ reporter: 'nyan' }))
     .once('end', function() { process.exit(); });
 });
@@ -31,10 +34,10 @@ gulp.task('test', function() {
 gulp.task('coverage', function() {
   process.env.NODE_ENV = 'test';
 
-  gulp.src(paths.server)
+  gulp.src(paths.js.server)
     .pipe(istanbul())
     .on('finish', function() {
-      gulp.src(paths.test)
+      gulp.src(paths.js.test)
         .pipe(mocha({ reporter: 'spec' }))
         .pipe(istanbul.writeReports({
           dir: './coverage',
@@ -45,6 +48,59 @@ gulp.task('coverage', function() {
     });
 });
 
-gulp.task('restart', ['lint']);
+// ----- build stuff ----- //
 
-gulp.task('default', ['lint', 'server']);
+gulp.task('server', function() {
+  nodemon({
+    script: 'server/app.js',
+    env: { NODE_ENV: 'development' }
+  }).on('change', ['server:restart']);
+});
+
+gulp.task('lint:server', function() {
+  return gulp.src(paths.js.server)
+    .pipe(jshint())
+    .pipe(jshint.reporter('jshint-stylish'));
+});
+
+gulp.task('lint:client', function() {
+  return gulp.src(paths.js.client)
+    .pipe(jshint())
+    .pipe(jshint.reporter('jshint-stylish'));
+});
+
+gulp.task('compile:css', function() {
+  return gulp.src(paths.less)
+    .pipe(concat('style.css'))
+    .pipe(less())
+    .pipe(gulp.dest('./client/.tmp'));
+});
+
+gulp.task('watch', function() {
+  gulp.watch(paths.client, ['client:restart']);
+});
+
+gulp.task('inject:index', function() {
+  var defaultOptions = {
+    addRootSlash: false,
+    relative: true
+  };
+
+  return gulp.src('./client/index.html')
+    // inject bower files
+    .pipe(inject(gulp.src(bowerFiles(), { read: false }), {
+      name: 'bower',
+      addRootSlash: false,
+      relative: true
+    }))
+    .pipe(inject(gulp.src(paths.js.client, { read: false }), defaultOptions)) // inject app/*.js
+    .pipe(inject(gulp.src('./client/.tmp/app.css', { read: false }), defaultOptions)) // inject .tmp/app.css
+    .pipe(gulp.dest('./client'));
+});
+
+// restart tasks called from watch functions
+gulp.task('server:restart', ['lint:server']);
+gulp.task('client:restart', ['lint:client', 'compile:css', 'inject:index']);
+
+// boot up application
+gulp.task('default', ['lint:server', 'lint:client', 'compile:css', 'inject:index', 'server', 'watch']);

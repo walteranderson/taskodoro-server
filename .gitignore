@@ -2,3 +2,4 @@
 node_modules
 coverage
 client/bower_components
+client/.tmp
