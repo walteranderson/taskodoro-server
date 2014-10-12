@@ -1,8 +1,11 @@
 ;(function () {
   'use strict';
 
-  function Auth($window, $http, $q) {
+  function Auth($window, $http, $q, User) {
     var currentUser = {};
+    if ($window.sessionStorage.token) {
+      currentUser = User.get();
+    }
 
     return {
 
@@ -15,7 +18,10 @@
         })
         .success(function(data) {
           $window.sessionStorage.token = data.token;
-          // currentUser = User.get();
+          User.get(function(user) {
+            currentUser = user;
+          });
+
           deferred.resolve(data);
         })
         .error(function(err) {
@@ -28,6 +34,15 @@
 
       logout: function() {
         $window.sessionStorage.token = '';
+        currentUser = {};
+      },
+
+      getCurrentUser: function() {
+        return currentUser.$promise;
+      },
+
+      isLoggedIn: function() {
+        return currentUser.hasOwnProperty('_id');
       }
     };
 

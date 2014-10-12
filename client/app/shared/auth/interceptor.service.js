@@ -1,7 +1,7 @@
 ;(function () {
   'use strict';
 
-  function authInterceptor($window, $q) {
+  function authInterceptor($window, $q, $location) {
 
     return {
       request: function(config) {
@@ -14,7 +14,7 @@
       },
       responseError: function(res) {
         if (res.status === 401) {
-          // $state.go('login');
+          $location.path('/login');
           $window.sessionStorage.token = '';
 
           return $q.reject(res);
