@@ -35,6 +35,17 @@
         currentUser = {};
       },
 
+      createUser: function(user) {
+        return User.save(user,
+          function(data) {
+            console.log('all is well!');
+            $window.sessionStorage.token = data.token;
+            currentUser = User.get();
+          }, function(err) {
+            this.logout();
+          }.bind(this)).$promise;
+      },
+
       getCurrentUser: function() {
         return currentUser;
       },

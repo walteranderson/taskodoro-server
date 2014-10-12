@@ -1,11 +1,18 @@
 ;(function () {
   'use strict';
 
-  function RegisterCtrl($scope) {
+  function RegisterCtrl($scope, $location, Auth) {
+
     $scope.submit = function(user) {
-      console.log('received user');
-      console.log(user);
+      Auth.createUser(user)
+        .then(function(data) {
+          $location.path('/');
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
     };
+
   }
 
   angular.module('taskodoro')
