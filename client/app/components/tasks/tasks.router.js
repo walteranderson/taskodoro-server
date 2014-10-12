@@ -7,15 +7,16 @@
         abstract: true,
         url: '/tasks',
         templateUrl: 'app/components/tasks/views/tasks.layout.html',
-        controller: 'TasksController'
+        controller: 'TasksController',
+        authenticate: true
       })
       .state('tasks.list', {
         url: '',
-        templateUrl: 'app/components/tasks/views/tasks.list.html'
+        templateUrl: 'app/components/tasks/views/list-tasks.html'
       })
       .state('tasks.edit', {
         url: '/:id',
-        templateUrl: 'app/components/tasks/views/task.edit.html'
+        templateUrl: 'app/components/tasks/views/edit-task.html'
       });
   }
 
