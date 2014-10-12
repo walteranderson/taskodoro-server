@@ -7,8 +7,9 @@
     'ngSanitize',
     'ui.router'
   ])
-  .config(function($urlRouterProvider, $locationProvider) {
+  .config(function($urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider.otherwise('/');
+    $httpProvider.interceptors.push('authInterceptor');
 
     // $locationProvider.html5Mode(true);
   });

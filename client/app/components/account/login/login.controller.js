@@ -1,10 +1,17 @@
 ;(function () {
   'use strict';
 
-  function LoginCtrl($scope) {
+  function LoginCtrl($scope, Auth) {
     $scope.submit = function(user) {
-      console.log('received user data');
-      console.log(user);
+      Auth.login(user)
+        .then(function(data) {
+          console.log('success!');
+          console.log(data);
+        })
+        .catch(function(err) {
+          console.log('error!');
+          console.log(err);
+        });
     };
   }
 
