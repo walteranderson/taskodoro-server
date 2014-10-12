@@ -9,7 +9,7 @@
     $scope.logout = function() {
       Auth.logout();
       $location.path('/');
-    }
+    };
   }
 
   angular.module('taskodoro')
