@@ -2,7 +2,6 @@
   'use strict';
 
   function MainCtrl($scope) {
-    console.log('main controller');
     $scope.item = 'thing';
   }
 

@@ -1,9 +1,7 @@
 ;(function () {
   'use strict';
 
-  function MainRoutes($urlRouterProvider, $stateProvider) {
-    $urlRouterProvider.otherwise('/');
-
+  function MainRoutes($stateProvider) {
     $stateProvider
       .state('main', {
         url: '/',
