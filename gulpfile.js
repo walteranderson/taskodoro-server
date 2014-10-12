@@ -71,7 +71,7 @@ gulp.task('lint:client', function() {
 
 gulp.task('compile:css', function() {
   return gulp.src(paths.less)
-    .pipe(concat('style.css'))
+    .pipe(concat('app.css'))
     .pipe(less())
     .pipe(gulp.dest('./client/.tmp'));
 });
