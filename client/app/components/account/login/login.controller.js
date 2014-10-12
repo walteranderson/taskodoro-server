@@ -1,12 +1,11 @@
 ;(function () {
   'use strict';
 
-  function LoginCtrl($scope, Auth) {
+  function LoginCtrl($scope, $location, Auth) {
     $scope.submit = function(user) {
       Auth.login(user)
         .then(function(data) {
-          console.log('success!');
-          console.log(data);
+          $location.path('/');
         })
         .catch(function(err) {
           console.log('error!');

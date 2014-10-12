@@ -18,9 +18,7 @@
         })
         .success(function(data) {
           $window.sessionStorage.token = data.token;
-          User.get(function(user) {
-            currentUser = user;
-          });
+          currentUser = User.get();
 
           deferred.resolve(data);
         })
@@ -38,7 +36,7 @@
       },
 
       getCurrentUser: function() {
-        return currentUser.$promise;
+        return currentUser;
       },
 
       isLoggedIn: function() {

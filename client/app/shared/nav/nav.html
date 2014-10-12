@@ -1,9 +1,10 @@
 <div ng-controller="NavCtrl">
   <div>
-    {{ title }}
+    {{ title }} - <span ng-show="isLoggedIn()">{{ currentUser().username }}</span> -
     <a ui-sref="main">Home</a>&nbsp;
-    <a ui-sref="login">Login</a>&nbsp;
-    <a ui-sref="register">Register</a>
+    <a ui-sref="login" ng-hide="isLoggedIn()">Login</a>&nbsp;
+    <a ui-sref="register" ng-hide="isLoggedIn()">Register</a>
+    <a href="" ng-click="logout()" ng-show="isLoggedIn()">Logout</a>
 
   </div>
 </div>

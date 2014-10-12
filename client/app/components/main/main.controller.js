@@ -4,10 +4,7 @@
   function MainCtrl($scope, Auth) {
     $scope.text = 'Hey look I work!';
 
-    Auth.getCurrentUser()
-      .then(function(user) {
-        $scope.user = user;
-    });
+    $scope.user = Auth.getCurrentUser();
   }
 
   angular.module('taskodoro')
