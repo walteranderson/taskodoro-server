@@ -35,14 +35,24 @@
     };
 
     $scope.completeTask = function(task) {
-      Task.update({ id: task._id }, { completed: true })
-        .$promise.then(function() {
+      Task.update({ id: task._id }, { completed: true }).$promise
+        .then(function() {
           $scope.findAll();
         })
         .catch(function(err) {
           console.log(err);
         });
-    }
+    };
+
+    $scope.deleteTask = function(task) {
+      Task.delete({ id: task._id }).$promise
+        .then(function() {
+          $scope.findAll();
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
+    };
   }
 
   angular.module('taskodoro')

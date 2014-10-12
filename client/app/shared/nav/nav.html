@@ -1,7 +1,8 @@
 <div ng-controller="NavCtrl">
   <div>
     <a ui-sref="main">{{ title }}</a>&nbsp;
-    <a ui-sref="settings" ng-show="isLoggedIn()">{{ currentUser().username }}</a>
+    <a ui-sref="settings" ng-show="isLoggedIn()">{{ currentUser().username }}</a>&nbsp;
+    <a ui-sref="tasks.list">Tasks</a>
 
     <div class="actions">
       <a ui-sref="login" ng-hide="isLoggedIn()">Login</a>&nbsp;

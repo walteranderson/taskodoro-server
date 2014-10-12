@@ -2,11 +2,13 @@
   <p>Active Tasks</p>
   <div ng-repeat="task in tasks | filter: !!task.completed">
     <button ng-click="completeTask(task)">Complete</button>
-    <a ui-sref="tasks.edit({ id: task._id })">{{ task.text }}</a>
+    <a ui-sref="tasks.edit({ id: task._id })">{{ task.text }}</a>&nbsp;
+    <a href="javaScript:void(0);" ng-click="deleteTask(task)">X</a>
   </div>
   <br/><br/>
   <p>Completed</p>
   <div class="completedTasks" ng-repeat="task in tasks | filter: !task.completed">
-    <span class="task">{{ task.text }}</span>
+    <span class="task">{{ task.text }}</span>&nbsp;
+    <a href="javaScript:void(0);" ng-click="deleteTask(task)">X</a>
   </div>
 </div>
