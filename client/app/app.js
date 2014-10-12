@@ -11,7 +11,7 @@
     $urlRouterProvider.otherwise('/');
     $httpProvider.interceptors.push('authInterceptor');
 
-    // $locationProvider.html5Mode(true);
+    $locationProvider.html5Mode(true);
   })
   .run(function($rootScope, $location, Auth) {
     $rootScope.$on('$stateChangeStart', function(event, next) {

@@ -25,6 +25,7 @@ module.exports = function(app) {
 
   // serve assets stored in the public folder
   app.use(express.static(config.root + config.staticAssets));
+  app.set('appPath', config.root + config.staticAssets);
 
   // error handlers
   // maybe try to move these to routes?

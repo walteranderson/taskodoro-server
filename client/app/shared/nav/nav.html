@@ -1,10 +1,10 @@
 <div ng-controller="NavCtrl">
   <div>
     <a ui-sref="main">{{ title }}</a>&nbsp;
-    <a ui-sref="settings" ng-show="isLoggedIn()">{{ currentUser().username }}</a>&nbsp;
     <a ui-sref="tasks.list">Tasks</a>
 
     <div class="actions">
+      <a ui-sref="settings" ng-show="isLoggedIn()">{{ currentUser().username }}</a>&nbsp;
       <a ui-sref="login" ng-hide="isLoggedIn()">Login</a>&nbsp;
       <a ui-sref="register" ng-hide="isLoggedIn()">Register</a>
       <a href="" ng-click="logout()" ng-show="isLoggedIn()">Logout</a>
