@@ -1,4 +1,10 @@
 <div ng-init="findOne()">
-  <p>Edit View</p>
-  <p>{{ id }}</p>
+  <p>Edit Task</p>
+  <form novalidate>
+    <div>
+      <label for="text">Task Name</label>
+      <input type="text" name="text" ng-model="task.text">
+    </div>
+    <button ng-click="update()">Submit</button>
+  </form>
 </div>

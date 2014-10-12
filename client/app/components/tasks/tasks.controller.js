@@ -1,14 +1,24 @@
 ;(function () {
   'use strict';
 
-  function TasksController($scope, $stateParams, Task) {
+  function TasksController($scope, $stateParams, $location, Task) {
 
     $scope.findAll = function() {
       $scope.tasks = Task.query();
     };
 
     $scope.findOne = function() {
-      $scope.id = $stateParams.id;
+      $scope.task = Task.get({ id: $stateParams.id });
+    };
+
+    $scope.update = function() {
+      var task = $scope.task;
+
+      task.$update(function() {
+        $location.path('/tasks');
+      }, function(err) {
+        console.log(err);
+      });
     };
 
     $scope.addTask = function(newTask) {

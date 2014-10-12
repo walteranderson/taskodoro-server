@@ -1,7 +1,12 @@
 <div ng-init="findAll()">
-  <p>List View</p>
+  <p>Active Tasks</p>
   <div ng-repeat="task in tasks | filter: !!task.completed">
-    {{ task }}
     <button ng-click="completeTask(task)">Complete</button>
+    <a ui-sref="tasks.edit({ id: task._id })">{{ task.text }}</a>
+  </div>
+  <br/><br/>
+  <p>Completed</p>
+  <div class="completedTasks" ng-repeat="task in tasks | filter: !task.completed">
+    <span class="task">{{ task.text }}</span>
   </div>
 </div>
