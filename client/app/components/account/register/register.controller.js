@@ -1,13 +1,13 @@
 ;(function () {
   'use strict';
 
-  function LoginCtrl($scope) {
+  function RegisterCtrl($scope) {
     $scope.submit = function(user) {
-      console.log('received user data');
+      console.log('received user');
       console.log(user);
     };
   }
 
   angular.module('taskodoro')
-    .controller('LoginCtrl', LoginCtrl);
+    .controller('RegisterCtrl', RegisterCtrl);
 }());

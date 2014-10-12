@@ -1,7 +1,7 @@
 ;(function () {
   'use strict';
 
-  function MainRoutes($stateProvider) {
+  function MainRouter($stateProvider) {
     $stateProvider
       .state('main', {
         url: '/',
@@ -11,5 +11,5 @@
   }
 
   angular.module('taskodoro')
-    .config(MainRoutes);
+    .config(MainRouter);
 }());

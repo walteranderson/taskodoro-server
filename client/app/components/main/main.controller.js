@@ -2,7 +2,7 @@
   'use strict';
 
   function MainCtrl($scope) {
-    $scope.item = 'thing';
+    $scope.text = 'Hey look I work!';
   }
 
   angular.module('taskodoro')
