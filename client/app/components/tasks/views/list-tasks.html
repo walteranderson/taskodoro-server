@@ -1,23 +1,27 @@
 <div class="row" ng-init="findAll()">
 
   <div class="list-group col-lg-6 center">
-    <div class="task list-group-item" ng-repeat="task in tasks" animate-hide ng-hide="task.completed">
-        <div class="task-complete-button row-action-primary" ng-click="completeTask(task)">
-          <a class="btn btn-success btn-fab icon-material-check"></a>
+    <div class="task list-group-item well well-sm" ng-repeat="task in tasks" animate-hide ng-hide="task.completed">
+
+        <!-- complete task button -->
+        <div class="row-action-primary" ng-click="completeTask(task)">
+          <a class="btn btn-default btn-fab icon-material-check-circle task-complete-button"></a>
         </div>
+
         <div class="row-content">
+          <!-- options button -->
           <div class="task-remove-button action-secondary" ng-click="deleteTask(task)">
             <i class="icon-material-close"></i>
+
           </div>
 
+          <!-- task name -->
           <div class="task-name">
             <a ui-sref="tasks.edit({ id: task._id })">{{ task.text }}</a>
           </div>
         </div>
 
-        <div class="list-group-separator"></div>
     </div>
-
   </div>
 
 
