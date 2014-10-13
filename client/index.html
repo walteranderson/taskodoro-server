@@ -9,22 +9,26 @@
 
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
+        <!-- Bootstrap Material Design -->
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+        <link href="bower_components/bootstrap-material-design/dist/css/ripples.min.css" rel="stylesheet">
+        <link href="bower_components/bootstrap-material-design/dist/css/material-wfont.min.css" rel="stylesheet">
+
         <!-- bower:css -->
         <!-- endinject -->
-        <script id="webplate-stack" src="bower_components/webplate/stack.js"></script>
 
         <!-- inject:css -->
         <link rel="stylesheet" href=".tmp/app.css">
         <!-- endinject -->
     </head>
-    <body ng-app="taskodoro" style="display: none;" data-ui="stripe" data-icon-font="icomoon">
+    <body ng-app="taskodoro">
       <!--[if lt IE 7]>
           <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
       <![endif]-->
 
       <!-- Add your site or application content here -->
       <div ng-include="'app/shared/nav/nav.html'"></div>
-      <div class="row pad-10">
+      <div class="container">
         <div ui-view></div>
       </div>
 
@@ -36,6 +40,12 @@
       <script src="bower_components/lodash/dist/lodash.compat.js"></script>
       <script src="bower_components/angular-resource/angular-resource.js"></script>
       <!-- endinject -->
+
+      <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+      <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+      <script src="bower_components/bootstrap-material-design/dist/js/ripples.min.js"></script>
+      <script src="bower_components/bootstrap-material-design/dist/js/material.min.js"></script>
 
       <!-- inject:js -->
       <script src="app/app.js"></script>

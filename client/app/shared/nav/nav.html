@@ -1,29 +1,28 @@
-<!-- <nav class="navigation" ng-controller="NavCtrl">
-  <ul>
-    <li><a ui-sref="settings" ng-show="isLoggedIn()">{{ currentUser().username }}</a></li>
-    <li><a ui-sref="login" ng-hide="isLoggedIn()">Login</a></li>
-    <li><a ui-sref="register" ng-hide="isLoggedIn()">Register</a></li>
-    <li><a href="" ng-click="logout()" ng-show="isLoggedIn()">Logout</a></li>
-  </ul>
-  <div>
-    <a ui-sref="main">{{ title }}</a>&nbsp;
-    <a ui-sref="tasks.list">Tasks</a>
-  </div>
-</nav> -->
+<div class="navbar navbar-default" ng-controller="NavCtrl">
 
-<!-- Navigation -->
-<div ng-controller="NavCtrl">
-  <a href="#" class="navigation-trigger icon-menu"></a>
-  <nav class="contain">
+    <!-- Brand and Header -->
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" ui-sref="main">{{ title }}</a>
+    </div>
 
-    <ul class="navigation">
-      <li><a ui-sref="settings" ng-show="isLoggedIn()">{{ currentUser().username }}</a></li>
-      <li><a ui-sref="login" ng-hide="isLoggedIn()">Login</a></li>
-      <li><a ui-sref="register" ng-hide="isLoggedIn()">Register</a></li>
-      <li><a href="" ng-click="logout()" ng-show="isLoggedIn()">Logout</a></li>
-    </ul>
+    <div class="navbar-collapse collapse navbar-responsive-collapse">
+        <!-- Left Nav -->
+        <ul class="nav navbar-nav">
+            <li><a ui-sref="tasks.list">Tasks</a></li>
+        </ul>
 
-    <div class="logo-container"><a ui-sref="main" class="button line-blue">{{ title }}</a></div>
+        <!-- Right Nav -->
+        <ul class="nav navbar-nav navbar-right">
+            <li><a ui-sref="settings" ng-show="isLoggedIn()">{{ currentUser().username }}</a></li>
+            <li><a ui-sref="login" ng-hide="isLoggedIn()">Login</a></li>
+            <li><a ui-sref="register" ng-hide="isLoggedIn()">Register</a></li>
+            <li><a href="" ng-click="logout()" ng-show="isLoggedIn()">Logout</a></li>
+        </ul>
+    </div>
 
-  </nav>
 </div>

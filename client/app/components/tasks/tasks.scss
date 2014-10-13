@@ -1,0 +1,23 @@
+.completedTasks {
+  .task {
+    text-decoration: line-through;
+    color: grey;
+  }
+}
+
+.add-form {
+  .input {
+    margin-top: 14px;
+  }
+}
+
+.task {
+  .task-name {
+    font-size: 38px;
+    text-align: center;
+  }
+
+  .task-complete-button {
+    color: #0f9d58;
+  }
+}

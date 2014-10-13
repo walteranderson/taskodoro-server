@@ -1,12 +1,18 @@
-<div ng-controller="TasksController">
-  <p>tasks layout</p>
-
-  <div>
-    <form novalidate>
-      <input type="text" ng-model="newTask">
-      <button ng-click="addTask(newTask)">Add Task</button>
+<div class="row" ng-controller="TasksController">
+  <div class="add-form col-lg-4 center">
+    <form class="form" novalidate>
+      <div class="form-group">
+        <div class="input-group">
+            <input class="input form-control input-sm" type="text" ng-model="newTask">
+            <span class="input-group-btn">
+                <button class="btn btn-default btn-xs" ng-click="addTask(newTask)">Add Task</button>
+            </span>
+        </div>
+      </div>
     </form>
   </div>
 
-  <div ui-view></div>
+  <div class="col-lg-12">
+    <div ui-view></div>
+  </div>
 </div>

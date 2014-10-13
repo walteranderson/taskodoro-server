@@ -5,7 +5,7 @@ var gulp       = require('gulp'),
     istanbul   = require('gulp-istanbul'),
     inject     = require('gulp-inject'),
     concat     = require('gulp-concat'),
-    less       = require('gulp-less'),
+    sass       = require('gulp-sass'),
     bowerFiles = require('main-bower-files'),
     paths = {
       js: {
@@ -13,7 +13,7 @@ var gulp       = require('gulp'),
         client: ['client/app/*.js', 'client/app/**/*.js'],
         test: ['server/**/*.spec.js']
       },
-      less: ['client/app/*.less', 'client/app/**/*.less'],
+      sass: ['client/app/*.scss', 'client/app/**/*.scss'],
       templates: ['!client/app/index.html', 'client/app/**/*.html'],
       client: ['client/*.*', 'client/app/*.*', 'client/app/**/*.*']
     },
@@ -70,9 +70,9 @@ gulp.task('lint:client', function() {
 });
 
 gulp.task('compile:css', function() {
-  return gulp.src(paths.less)
+  return gulp.src(paths.sass)
     .pipe(concat('app.css'))
-    .pipe(less())
+    .pipe(sass())
     .pipe(gulp.dest('./client/.tmp'));
 });
 

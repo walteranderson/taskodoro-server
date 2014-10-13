@@ -8,10 +8,10 @@
     "angular-ui-router": "~0.2.10",
     "lodash": "~2.4.1",
     "angular-resource": "~1.2.26",
-    "webplate": "~2.5.4"
+    "bootstrap-material-design": "~0.1.0"
   },
   "overrides": {
-    "webplate": {
+    "bootstrap-material-design": {
       "ignore": true
     }
   }
