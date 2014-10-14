@@ -1,0 +1,22 @@
+
+// Bootstrap
+@import "../../bower_components/bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
+
+// Material Design
+@import "../../bower_components/bootstrap-material-design/sass/material-wfont.scss";
+@import "../../bower_components/bootstrap-material-design/sass/ripples.scss";
+
+// Modules and Variables
+@import "partials/_base.scss";
+
+.browsehappy {
+    margin: 0.2em 0;
+    background: #ccc;
+    color: #000;
+    padding: 0.2em 0;
+}
+
+.center {
+  margin: auto;
+  float: none;
+}

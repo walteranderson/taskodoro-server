@@ -13,7 +13,8 @@ var gulp       = require('gulp'),
         client: ['client/app/*.js', 'client/app/**/*.js'],
         test: ['server/**/*.spec.js']
       },
-      sass: ['client/app/*.scss', 'client/app/**/*.scss'],
+      // sass: ['client/app/*.scss', 'client/app/**/*.scss'],
+      sass: ['client/app/style/main.scss'],
       templates: ['!client/app/index.html', 'client/app/**/*.html'],
       client: ['client/*.*', 'client/app/*.*', 'client/app/**/*.*']
     },
