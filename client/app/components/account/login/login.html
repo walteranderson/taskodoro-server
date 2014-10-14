@@ -1,12 +1,17 @@
-<div ng-controller="LoginCtrl">
-  <h2>Login</h2>
-  <form novalidate>
-    <div>
-      <input type="text" placeholder="username" ng-model="user.username">
-    </div>
-    <div>
-      <input type="password" placeholder="password" ng-model="user.password">
-    </div>
-    <button ng-click="submit(user)">Login</button>
-  </form>
+<div class="auth-container" ng-controller="LoginCtrl">
+  <div class="auth-helper">
+
+    <form class="form auth-content" novalidate>
+      <div class="form-group">
+        <input class="form-control" name="username" type="text" placeholder="Username" ng-model="user.username">
+      </div>
+      <div class="form-group">
+        <input class="form-control" name="password" type="password" placeholder="Password" ng-model="user.password">
+      </div>
+      <div class="form-group">
+        <button class="btn btn-default btn-lg btn-block" ng-click="submit(user)">Login</button>
+      </div>
+    </form>
+
+  </div>
 </div>

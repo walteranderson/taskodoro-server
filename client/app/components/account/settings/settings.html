@@ -1,15 +1,22 @@
-<div ng-controller="SettingsCtrl">
-  <h2>Change Password</h2>
-  <form novalidate>
-    {{ message }}
-    <div>
-      <label for="oldPassword">Old Password</label><br/>
-      <input type="password" name="oldPassword" ng-model="user.oldPassword">
+<div ng-include="'app/shared/nav/nav.html'"></div>
+<div class="container">
+
+  <div ng-controller="SettingsCtrl">
+    <div class="col-ld-4 center">
+      Change Password
     </div>
-    <div>
-      <label for="newPassword">New Password</label><br/>
-      <input type="password" name="newPassword" ng-model="user.newPassword">
-    </div>
-    <button ng-click="changePassword(user)">Submit</button>
-  </form>
+    <form class="form col-lg-4 center" novalidate>
+      <div class="form-group">
+        <input class="form-control" type="password" name="oldPassword" placeholder="Old Password" ng-model="user.oldPassword">
+      </div>
+      <div class="form-group">
+        <input class="form-control" type="password" name="newPassword" placeholder="New Password" ng-model="user.newPassword">
+      </div>
+      <div class="form-group">
+        <button class="btn btn-default btn-lg btn-block" ng-click="changePassword(user)">Submit</button>
+      </div>
+    </form>
+  </div>
+
+
 </div>
