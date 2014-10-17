@@ -1,6 +1,7 @@
+/* Login & Logout Pages */
 
 // Vertically & Horizontally Center
-.auth-container {
+/* .auth-container {
   display: table;
   height: 100%;
   position: absolute;
@@ -16,11 +17,11 @@
     margin:0 auto;
     width:200px;
   }
-}
+} */
 
-// center labels
 .auth-content {
 
+  // add some space between inputs
   .form-group:first-child {
     margin-bottom: 25px;
   }

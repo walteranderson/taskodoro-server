@@ -1,0 +1,22 @@
+.nav-content {
+  background-color: $lightest-gray;
+}
+
+.view-container {
+  @include outer-container;
+  margin-top: 4em;
+
+  // select first div inside view-container
+  & > div {
+    @include span-columns(12);
+    padding: 15px;
+    height: 100vh;
+  }
+}
+
+.menu {
+  position: absolute;
+  padding-left: 15px;
+  font-size: $h1-font-size;
+  cursor: pointer;
+}

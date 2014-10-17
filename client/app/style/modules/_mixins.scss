@@ -1,0 +1,11 @@
+@mixin hover-link {
+  cursor: pointer;
+  @include transition-property (color);
+  @include transition-duration(0.5s);
+
+  &:hover {
+    @include transition-property (color);
+    @include transition-duration(0.5s);
+    color: $pretty-red;
+  }
+}

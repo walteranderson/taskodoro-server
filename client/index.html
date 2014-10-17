@@ -9,13 +9,16 @@
 
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
-        <!-- Bootstrap Material Design -->
-        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
-        <link href="bower_components/bootstrap-material-design/dist/css/ripples.min.css" rel="stylesheet">
-        <link href="bower_components/bootstrap-material-design/dist/css/material-wfont.min.css" rel="stylesheet">
-
         <!-- bower:css -->
+        <link rel="stylesheet" href="bower_components/normalize.css/normalize.css">
+        <link rel="stylesheet" href="bower_components/ionicons/css/ionicons.css">
+        <link rel="stylesheet" href="bower_components/angular-snap/angular-snap.css">
         <!-- endinject -->
+
+        <!-- Bootstrap Material Design -->
+        <!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+        <link href="bower_components/bootstrap-material-design/dist/css/ripples.min.css" rel="stylesheet">
+        <link href="bower_components/bootstrap-material-design/dist/css/material-wfont.min.css" rel="stylesheet"> -->
 
         <!-- inject:css -->
         <link rel="stylesheet" href=".tmp/app.css">
@@ -27,7 +30,13 @@
       <![endif]-->
 
       <!-- Add your site or application content here -->
-      <div ui-view></div>
+      <div ng-include="'app/shared/nav/nav.html'"></div>
+
+      <snap-content snap-id="'nav-content'" class="nav-content">
+        <div ng-include="'app/shared/nav/menu.html'"></div>
+
+        <div class="view-container" ui-view></div>
+      </snap-content>
 
       <!-- bower:js -->
       <script src="bower_components/angular/angular.js"></script>
@@ -37,12 +46,14 @@
       <script src="bower_components/lodash/dist/lodash.compat.js"></script>
       <script src="bower_components/angular-resource/angular-resource.js"></script>
       <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+      <script src="bower_components/snapjs/snap.js"></script>
+      <script src="bower_components/angular-snap/angular-snap.js"></script>
       <!-- endinject -->
-
+<!--
       <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
       <script src="bower_components/bootstrap-material-design/dist/js/ripples.min.js"></script>
       <script src="bower_components/bootstrap-material-design/dist/js/material.min.js"></script>
-
+ -->
       <!-- inject:js -->
       <script src="app/app.js"></script>
       <script src="app/components/account/account.router.js"></script>

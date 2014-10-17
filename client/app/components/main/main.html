@@ -1,14 +1,12 @@
-<div ng-include="'app/shared/nav/nav.html'"></div>
-<div class="container">
+<div class="main-container">
 
-  <div class="row" ng-controller="MainCtrl">
-    <div class="col-md-12">
-      {{ text }}
-      <pre>
-        {{ user }}
-      </pre>
+  <div ng-controller="MainCtrl">
+    <div class="center">
+      Home Page for Taskodoro!
+    </div>
+    <div class="center" ng-show="!!user">
+      We have user data!
     </div>
   </div>
-
 
 </div>

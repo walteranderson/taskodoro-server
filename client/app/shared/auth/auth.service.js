@@ -2,7 +2,7 @@
   'use strict';
 
   function Auth($window, $http, $q, User) {
-    var currentUser = {};
+    var currentUser = null;
     if ($window.sessionStorage.token) {
       currentUser = User.get();
     }
@@ -32,7 +32,7 @@
 
       logout: function() {
         $window.sessionStorage.token = '';
-        currentUser = {};
+        currentUser = null;
       },
 
       createUser: function(user) {

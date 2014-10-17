@@ -1,29 +1,19 @@
-<div class="navbar navbar-default" ng-controller="NavCtrl">
+<div class="nav" ng-controller="NavCtrl">
+  <div snap-drawer>
+      <!-- Brand and Header -->
+      <div class="nav-brand">
+          <a class="" ui-sref="main">{{ title }}</a>
+      </div>
 
-    <!-- Brand and Header -->
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <!-- <i class="icon-material-more-vert"></i> -->
-        </button>
-        <a class="navbar-brand" ui-sref="main">{{ title }}</a>
-    </div>
-
-    <div class="navbar-collapse collapse navbar-responsive-collapse">
-      <!-- Left Nav -->
-      <ul class="nav navbar-nav">
-          <li><a ui-sref="tasks.list">Tasks</a></li>
-      </ul>
-
-      <!-- Right Nav -->
-      <ul class="nav navbar-nav navbar-right">
-          <li><a ui-sref="settings" ng-show="isLoggedIn()">{{ currentUser().username }}</a></li>
-          <li><a ui-sref="login" ng-hide="isLoggedIn()">Login</a></li>
-          <li><a ui-sref="register" ng-hide="isLoggedIn()">Register</a></li>
-          <li><a href="" ng-click="logout()" ng-show="isLoggedIn()">Logout</a></li>
-      </ul>
-    </div>
+      <div class="nav-control">
+        <ul>
+            <li><a ui-sref="settings" ng-show="isLoggedIn()">{{ currentUser().username }}</a></li>
+            <li><a ui-sref="tasks.list" ng-show="isLoggedIn()">Tasks</a></li>
+            <li><a ui-sref="login" ng-hide="isLoggedIn()">Login</a></li>
+            <li><a ui-sref="register" ng-hide="isLoggedIn()">Register</a></li>
+            <li><a href="" ng-click="logout()" ng-show="isLoggedIn()">Logout</a></li>
+        </ul>
+      </div>
+  </div>
 
 </div>
