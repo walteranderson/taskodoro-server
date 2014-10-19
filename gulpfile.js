@@ -272,5 +272,5 @@ gulp.task('client:restart', ['lint:client', 'scripts:dev', 'stylesheets:dev', 'i
  * ========================================
  */
 
-gulp.task('build', ['clean:dist', 'lint:server', 'lint:client', 'compile:dist', 'index:dist']);
+gulp.task('heroku:production', ['clean:dist', 'lint:server', 'lint:client', 'compile:dist', 'index:dist']);
 gulp.task('default', ['clean:dev', 'lint:server', 'lint:client', 'compile:dev', 'index:dev', 'server', 'watch:client']);
