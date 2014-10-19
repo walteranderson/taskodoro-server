@@ -1,43 +1,46 @@
-var gulp       = require('gulp'),
-    nodemon    = require('gulp-nodemon'),
-    jshint     = require('gulp-jshint'),
-    mocha      = require('gulp-mocha'),
-    istanbul   = require('gulp-istanbul'),
-    inject     = require('gulp-inject'),
-    concat     = require('gulp-concat'),
-    sass       = require('gulp-sass'),
-    bowerFiles = require('main-bower-files'),
-    uglify     = require('gulp-uglify'),
-    ngAnnotate = require('gulp-ng-annotate'),
-    rename     = require('gulp-rename'),
-    htmlify    = require('gulp-angular-htmlify'),
-    templateCache = require('gulp-angular-templatecache'),
-    streamqueue = require('streamqueue'),
-    minifyCSS  = require('gulp-minify-css');
+var gulp        = require('gulp'),
+    rimraf      = require('rimraf'),
+    streamQueue = require('streamqueue'),
+    bowerFiles  = require('main-bower-files');
+    nodemon     = require('gulp-nodemon'),
+    jshint      = require('gulp-jshint'),
+    mocha       = require('gulp-mocha'),
+    istanbul    = require('gulp-istanbul'),
+    inject      = require('gulp-inject'),
+    concat      = require('gulp-concat'),
+    sass        = require('gulp-sass'),
+    uglify      = require('gulp-uglify'),
+    ngAnnotate  = require('gulp-ng-annotate'),
+    rename      = require('gulp-rename'),
+    htmlify     = require('gulp-angular-htmlify'),
+    tmplCache   = require('gulp-angular-templatecache'),
+    minifyCSS   = require('gulp-minify-css');
 
 var paths = {
-      js: {
-        server: ['server/*.js', 'server/**/*.js'],
-        client: ['client/app/*.js', 'client/app/**/*.js'],
-        test: ['server/**/*.spec.js']
-      },
-      sass: ['client/app/style/main.scss'],
-      templates: ['!client/app/index.html', 'client/app/**/*.html'],
-      client: ['client/*.*', 'client/app/*.*', 'client/app/**/*.*']
-};
-
-var destinations = {
-      public: './public',
-      templates: './public/templates',
-      js: './public/js',
-      css: './public/css'
+  server: {
+    scripts: ['server/*.js', 'server/**/*.js'],
+    tests: ['server/**/*.spec.js']
+  },
+  client: {
+    all: ['client/*.*', 'client/app/*.*', 'client/app/**/*.*'],
+    scripts: ['client/app/*.js', 'client/app/**/*.js'],
+    stylesheets: ['client/app/style/main.scss'],
+    templates: ['client/app/**/*.html', '!client/app/index.html'],
+    index: ['./client/index.html'],
+    temp: ['./client/.tmp/*.*'],
+    dist: ['./public/*.*']
+  },
+  dest: {
+    dev: './client/.tmp',
+    dist: './public'
+  }
 };
 
 // Backend Testing
 gulp.task('test', function() {
   process.env.NODE_ENV = 'test';
 
-  return gulp.src(paths.js.test)
+  return gulp.src(paths.server.tests)
     .pipe(mocha({ reporter: 'nyan' }))
     .once('end', function() { process.exit(); });
 });
@@ -46,10 +49,10 @@ gulp.task('test', function() {
 gulp.task('coverage', function() {
   process.env.NODE_ENV = 'test';
 
-  gulp.src(paths.js.server)
+  gulp.src(paths.server.scripts)
     .pipe(istanbul())
     .on('finish', function() {
-      gulp.src(paths.js.test)
+      gulp.src(paths.server.tests)
         .pipe(mocha({ reporter: 'spec' }))
         .pipe(istanbul.writeReports({
           dir: './coverage',
@@ -60,8 +63,63 @@ gulp.task('coverage', function() {
     });
 });
 
+/* Config Functions
+ * ========================================
+ * Agnostic helper functions
+ * ========================================
+ */
 
-/* Script-Related Tasks
+/*
+ * Filter bower_components by file extension
+ */
+function filteredBower(ext) {
+  var condition;
+
+  if (ext == 'font') {
+    condition = function(file) {
+      return file.indexOf('ionicons/fonts');
+    };
+  } else {
+    condition = function(file) {
+      var extension = file.split('/').pop().split('.').pop();
+      return extension == ext;
+    };
+  }
+
+  return gulp.src(bowerFiles({ filter: condition }));
+}
+
+/*
+ * Clean dev and dist directories
+ */
+gulp.task('clean:dist', function(cb){
+  rimraf('./public', cb);
+});
+
+gulp.task('clean:dev', function(cb){
+  rimraf('./client/.tmp', cb);
+});
+
+/* STEP 1 - Linting
+ * ========================================
+ * Linting for javascript errors
+ * client js and server js
+ * ========================================
+ */
+
+gulp.task('lint:server', function() {
+  return gulp.src(paths.server.scripts)
+    .pipe(jshint())
+    .pipe(jshint.reporter('jshint-stylish'));
+});
+
+gulp.task('lint:client', function() {
+  return gulp.src(paths.client.scripts)
+    .pipe(jshint())
+    .pipe(jshint.reporter('jshint-stylish'));
+});
+
+/* STEP 2 - Scripts
  * ========================================
  * Compile, concatenate, and minify scripts
  * (TBA - Pulls in 3rd party libraries) and
@@ -70,35 +128,48 @@ gulp.task('coverage', function() {
  */
 
 function compileAppScripts() {
-  return gulp.src(paths.js.client)
+  return gulp.src(paths.client.scripts)
     .pipe(ngAnnotate());
 }
 
 function compileTemplates() {
-  return gulp.src(paths.templates)
+  return gulp.src(paths.client.templates)
     .pipe(htmlify())
-    .pipe(templateCache({
+    .pipe(tmplCache({
       root: 'app/',
       standalone: false,
       module: 'taskodoro'
     }));
 }
 
-// all scripts are concatenated together,
-// minified, renamed, and output to the public folder
-function buildScripts() {
-  return streamqueue({ objectMode: true }, compileAppScripts(), compileTemplates())
-    .pipe(concat('app.js'))
-    .pipe(uglify())
-    .pipe(rename({ extname: '.min.js' }))
-    .pipe(gulp.dest(destinations.public));
+function concatenateScripts() {
+  return streamQueue({ objectMode: true }, filteredBower('js'), compileAppScripts(), compileTemplates())
+    .pipe(concat('app.js'));
 }
 
-gulp.task('scripts:dist', function() { return buildScripts(); });
+// all scripts are concatenated together,
+// minified, renamed, and output to the public folder
+function buildScripts(dest, minify) {
+  dest   = dest || paths.dest.dev;
+  minify = minify || false;
+
+  var scripts = concatenateScripts();
+
+  if (minify) {
+    scripts = scripts
+      .pipe(uglify())
+      .pipe(rename({ extname: '.min.js' }));
+  }
+
+  return scripts.pipe(gulp.dest(dest));
+}
+
+gulp.task('scripts:dev', function() { return buildScripts(); });
+gulp.task('scripts:dist', function() { return buildScripts(paths.dest.dist, true); });
 
 
 
-/* Style-Related Tasks
+/* STEP 3 - Stylesheets
  * ========================================
  * Compile, concatenate, and (optionally)
  * minify stylesheets
@@ -108,17 +179,17 @@ gulp.task('scripts:dist', function() { return buildScripts(); });
  */
 
 function compileAppStyles() {
-  return gulp.src(paths.sass)
+  return gulp.src(paths.client.stylesheets)
     .pipe(sass());
 }
 
 function concatenateStyles() {
-  return streamqueue({ objectMode: true }, compileAppStyles())
+  return streamQueue({ objectMode: true }, filteredBower('css'), compileAppStyles())
     .pipe(concat('app.css'));
 }
 
 function buildStyles(dest, minify) {
-  dest   = dest || './client/.tmp';
+  dest   = dest || paths.dest.dev;
   minify = minify || false;
 
   var styles = concatenateStyles();
@@ -133,31 +204,49 @@ function buildStyles(dest, minify) {
     .pipe(gulp.dest(dest));
 }
 
-gulp.task('css:dev', function() { return buildStyles(); });
-gulp.task('css:dist', function() { return buildStyles('./public', true); });
+gulp.task('stylesheets:dev', function() { return buildStyles(); });
+gulp.task('stylesheets:dist', function() { return buildStyles(paths.dest.dist, true); });
 
 
+/*
+ * Compile js and css in one task
+ */
+gulp.task('compile:dev', ['scripts:dev', 'stylesheets:dev']);
+gulp.task('compile:dist', ['scripts:dist', 'stylesheets:dist']);
+
+/* STEP 4 - Index page
+ * ========================================
+ * copies client/index.html
+ * injects bower components
+ * injects newly created app.js and app.css
+ * new file in public/index.html
+ * ========================================
+ */
+
+function compileIndex(files, dest) {
+  files = files || paths.client.temp;
+  dest  = dest || './client';
+
+  var opts = {
+    addRootSlash: false,
+    ignorePath: ['client', 'public']
+  };
+
+  return gulp.src(paths.client.index)
+    .pipe(inject(gulp.src(files, { read: false }), opts))
+    .pipe(gulp.dest(dest));
+}
+
+gulp.task('index:dev', ['compile:dev'], function() { return compileIndex(); });
+gulp.task('index:dist', ['compile:dist'], function() { return compileIndex(paths.client.dist, paths.dest.dist); });
 
 
-
-
-
-
-
-
-
-
- // compile scss into app.css
-gulp.task('compile:css', function() {
-  return gulp.src(paths.sass)
-    .pipe(concat('app.css'))
-    .pipe(sass())
-    .pipe(gulp.dest('./client/.tmp'));
-});
-
-
-
-
+/* STEP 5 - Server & Watch
+ * ========================================
+ * Start backend server
+ * Watch everything and reload on change
+ * ========================================
+ */
 
 // start and watch the server
 gulp.task('server', function() {
@@ -167,46 +256,21 @@ gulp.task('server', function() {
   }).on('change', ['server:restart']);
 });
 
-// linting
-gulp.task('lint:server', function() {
-  return gulp.src(paths.js.server)
-    .pipe(jshint())
-    .pipe(jshint.reporter('jshint-stylish'));
-});
-
-gulp.task('lint:client', function() {
-  return gulp.src(paths.js.client)
-    .pipe(jshint())
-    .pipe(jshint.reporter('jshint-stylish'));
-});
-
 // watch the client and restart for changes
-gulp.task('watch', function() {
-  gulp.watch(paths.client, ['client:restart']);
+gulp.task('watch:client', function() {
+  gulp.watch(paths.client.all, ['client:restart']);
 });
 
-// inject bowerfiles and js files into index.html
-gulp.task('inject:index', function() {
-  var defaultOptions = {
-    addRootSlash: false,
-    relative: true
-  };
-
-  return gulp.src('./client/index.html')
-    // inject bower files
-    .pipe(inject(gulp.src(bowerFiles(), { read: false }), {
-      name: 'bower',
-      addRootSlash: false,
-      relative: true
-    }))
-    .pipe(inject(gulp.src(paths.js.client, { read: false }), defaultOptions)) // inject app/*.js
-    .pipe(inject(gulp.src('./client/.tmp/app.css', { read: false }), defaultOptions)) // inject .tmp/app.css
-    .pipe(gulp.dest('./client'));
-});
-
-// restart tasks called from watch functions
+// Restart Tasks
 gulp.task('server:restart', ['lint:server']);
-gulp.task('client:restart', ['lint:client', 'compile:css', 'inject:index']);
+gulp.task('client:restart', ['lint:client', 'scripts:dev', 'stylesheets:dev', 'index:dev']);
 
-// boot up application
-gulp.task('default', ['lint:server', 'lint:client', 'compile:css', 'inject:index', 'server', 'watch']);
+
+/* STEP 6 - Build
+ * ========================================
+ * Build steps for development and production
+ * ========================================
+ */
+
+gulp.task('build', ['clean:dist', 'lint:server', 'lint:client', 'compile:dist', 'index:dist']);
+gulp.task('default', ['clean:dev', 'lint:server', 'lint:client', 'compile:dev', 'index:dev', 'server', 'watch:client']);
