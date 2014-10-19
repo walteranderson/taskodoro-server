@@ -7,7 +7,7 @@
   },
   "scripts": {
     "start": "node server/app.js",
-    "test": "gulp test"
+    "postInstall": "bower install && gulp build"
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
