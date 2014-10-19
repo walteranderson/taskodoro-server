@@ -7,7 +7,7 @@
     $scope.currentUser = Auth.getCurrentUser;
 
     $scope.toggleNav = function() {
-      snapRemote.toggle('left', 'nav-content');
+      snapRemote.toggle('left', 'container');
     };
 
     $scope.logout = function() {

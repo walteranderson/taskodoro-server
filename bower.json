@@ -8,15 +8,9 @@
     "angular-ui-router": "~0.2.10",
     "lodash": "~2.4.1",
     "angular-resource": "~1.2.26",
-    "bootstrap-material-design": "~0.1.0",
     "angular-bootstrap": "~0.11.2",
     "normalize.css": "~3.0.2",
     "angular-snap": "~1.6.0",
     "ionicons": "~1.5.2"
-  },
-  "overrides": {
-    "bootstrap-material-design": {
-      "ignore": true
-    }
   }
 }

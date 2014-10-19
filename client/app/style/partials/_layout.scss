@@ -1,5 +1,12 @@
-.nav-content {
-  background-color: $lightest-gray;
+body {
+  background-color: $background-gray;
+}
+
+.container {
+  -webkit-box-shadow: -2px 0px 5px 0px rgba(0,0,0,0.50);
+  -moz-box-shadow: -2px 0px 5px 0px rgba(0,0,0,0.50);
+  box-shadow: -2px 0px 5px 0px rgba(0,0,0,0.50);
+  background-color: $main-gray;
 }
 
 .view-container {
@@ -13,6 +20,33 @@
     height: 100vh;
   }
 }
+
+
+// ----- NAV & MENU ----- //
+
+nav {
+
+  .nav-brand {
+    font-family: $brand-font;
+    font-size: 3em;
+    margin: 20px 15px;
+    a {
+      color: $font-black;
+      @include hover-link;
+    }
+  }
+
+  ul li {
+    margin: 20px 15px;
+    font-size: $h5-font-size;
+    a {
+      color: $font-black;
+      @include hover-link;
+    }
+  }
+
+}
+
 
 .menu {
   position: absolute;
