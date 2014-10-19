@@ -1,10 +1,14 @@
 ;(function () {
   'use strict';
 
-  function NavCtrl($scope, $location, Auth) {
+  function NavCtrl($scope, $location, snapRemote, Auth) {
     $scope.title = 'Taskodoro';
     $scope.isLoggedIn = Auth.isLoggedIn;
     $scope.currentUser = Auth.getCurrentUser;
+
+    $scope.toggleNav = function() {
+      snapRemote.toggle('left', 'container');
+    };
 
     $scope.logout = function() {
       Auth.logout();

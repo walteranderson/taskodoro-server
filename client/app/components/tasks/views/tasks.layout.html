@@ -1,12 +1,7 @@
-<div ng-controller="TasksController">
-  <p>tasks layout</p>
+<div>
+  <div class="row" ng-controller="TasksController">
 
-  <div>
-    <form novalidate>
-      <input type="text" ng-model="newTask">
-      <button ng-click="addTask(newTask)">Add Task</button>
-    </form>
+    <div ui-view></div>
+
   </div>
-
-  <div ui-view></div>
 </div>

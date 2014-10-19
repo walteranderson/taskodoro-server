@@ -27,6 +27,7 @@
       });
 
       task.$save(function(res) {
+        console.log($scope.newTask);
         $scope.newTask = '';
         $scope.findAll();
       }, function(err) {

@@ -2,9 +2,7 @@
   'use strict';
 
   function MainCtrl($scope, Auth) {
-    $scope.text = 'Hey look I work!';
-
-    $scope.user = Auth.getCurrentUser();
+    $scope.isLoggedIn = Auth.isLoggedIn;
   }
 
   angular.module('taskodoro')

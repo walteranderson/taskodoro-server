@@ -1,0 +1,23 @@
+@import 'vendor/bourbon/bourbon';
+@import 'vendor/base/base';
+@import 'vendor/neat/neat';
+
+// Modules and Variables
+@import 'partials/base';
+
+// Partials
+@import 'partials/layout';
+@import 'partials/auth';
+
+.browsehappy {
+    margin: 0.2em 0;
+    background: #ccc;
+    color: #000;
+    padding: 0.2em 0;
+}
+
+.center {
+  margin: auto;
+  float: none;
+  text-align: center;
+}

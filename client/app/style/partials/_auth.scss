@@ -1,0 +1,29 @@
+/* Login & Logout Pages */
+
+// Vertically & Horizontally Center
+/* .auth-container {
+  display: table;
+  height: 100%;
+  position: absolute;
+  overflow: hidden;
+  width: 100%;
+
+  .auth-helper {
+    display: table-cell;
+    vertical-align: middle;
+  }
+
+  .auth-content {
+    margin:0 auto;
+    width:200px;
+  }
+} */
+
+.auth-content {
+
+  // add some space between inputs
+  .form-group:first-child {
+    margin-bottom: 25px;
+  }
+
+}

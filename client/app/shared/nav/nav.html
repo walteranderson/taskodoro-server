@@ -1,13 +1,21 @@
-<div ng-controller="NavCtrl">
-  <div>
-    <a ui-sref="main">{{ title }}</a>&nbsp;
-    <a ui-sref="settings" ng-show="isLoggedIn()">{{ currentUser().username }}</a>&nbsp;
-    <a ui-sref="tasks.list">Tasks</a>
 
-    <div class="actions">
-      <a ui-sref="login" ng-hide="isLoggedIn()">Login</a>&nbsp;
-      <a ui-sref="register" ng-hide="isLoggedIn()">Register</a>
-      <a href="" ng-click="logout()" ng-show="isLoggedIn()">Logout</a>
+<nav ng-controller="NavCtrl" snap-drawer>
+    <div class="nav-brand">
+        <a class="" ui-sref="main">{{ title }}</a>
     </div>
-  </div>
-</div>
+
+    <div class="nav-user">
+      <ul>
+        <li><a ui-sref="tasks.list" ng-show="isLoggedIn()">Tasks</a></li>
+        <li><a ui-sref="settings" ng-show="isLoggedIn()">Account</a></li>
+      </ul>
+    </div>
+
+    <div class="nav-login">
+      <ul>
+          <li><a ui-sref="login" ng-hide="isLoggedIn()">Login</a></li>
+          <li><a ui-sref="register" ng-hide="isLoggedIn()">Register</a></li>
+          <li><a href="" ng-click="logout()" ng-show="isLoggedIn()">Logout</a></li>
+      </ul>
+    </div>
+</nav>
