@@ -8,6 +8,7 @@ module.exports = {
 
   ensureAuth: function() {
     return compose()
+
       // validate JWT first
       .use(function(req, res, next) {
         // allow access_token as url parameter to be used
@@ -18,6 +19,7 @@ module.exports = {
 
         validateJwt(req, res, next);
       })
+
       // inject user instance into the request
       .use(function(req, res, next) {
         User.findById(req.user._id, function(err, user) {

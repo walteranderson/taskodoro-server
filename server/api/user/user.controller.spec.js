@@ -203,7 +203,7 @@ describe('User API', function() {
 
     it('should respond with a 401 if not authenticated', function(done) {
       request(app)
-        .post('/api/users/' + loggedInUser._id + '/password')
+        .put('/api/users/' + loggedInUser._id + '/password')
         .expect(401)
         .end(done);
     });
@@ -212,7 +212,7 @@ describe('User API', function() {
       newPasswordData.oldPassword = 'wrongPassword';
 
       request(app)
-        .post('/api/users/' + loggedInUser._id + '/password')
+        .put('/api/users/' + loggedInUser._id + '/password')
         .set('authorization', 'Bearer ' + token)
         .send(newPasswordData)
         .expect(403)
@@ -221,7 +221,7 @@ describe('User API', function() {
 
     it('should successfully change the password', function(done) {
       request(app)
-        .post('/api/users/' + loggedInUser._id + '/password')
+        .put('/api/users/' + loggedInUser._id + '/password')
         .set('authorization', 'Bearer ' + token)
         .send(newPasswordData)
         .expect(200)
