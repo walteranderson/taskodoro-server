@@ -1,3 +1,5 @@
+'use strict';
+
 var path = require('path'),
     _    = require('lodash');
 
@@ -43,4 +45,5 @@ var config = {
 
 };
 
+// merge both arrays together
 module.exports = _.merge(all, config[process.env.NODE_ENV || 'development']);

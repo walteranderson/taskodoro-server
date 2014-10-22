@@ -1,3 +1,5 @@
+'use strict';
+
 var auth = require('./auth/auth.util');
 
 module.exports = function(app) {

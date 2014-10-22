@@ -1,3 +1,5 @@
+'use strict';
+
 var express        = require('express'),
     favicon        = require('serve-favicon'),
     logger         = require('morgan'),

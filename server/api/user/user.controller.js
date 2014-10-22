@@ -7,6 +7,8 @@
  * DELETE  /users/:id          ->  destroy
  */
 
+'use strict';
+
 var auth = require('../../auth/auth.util'),
     User = require('./user.model');
 

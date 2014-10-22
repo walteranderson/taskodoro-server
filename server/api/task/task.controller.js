@@ -6,6 +6,8 @@
  * DELETE  /tasks/:id          ->  destroy
  */
 
+'use strict';
+
 var Task = require('./task.model'),
     _    = require('lodash');
 

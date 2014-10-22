@@ -1,3 +1,5 @@
+'use strict';
+
 var router     = require('express').Router(),
     controller = require('./user.controller'),
     auth       = require('../../auth/auth.util');

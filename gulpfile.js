@@ -36,8 +36,14 @@ var paths = {
   }
 };
 
+/* Testing
+ * ========================================
+ * Testing tasks
+ * ========================================
+ */
+
 // Backend Testing
-gulp.task('test', function() {
+gulp.task('test:server', function() {
   process.env.NODE_ENV = 'test';
 
   return gulp.src(paths.server.tests)
@@ -62,6 +68,8 @@ gulp.task('coverage', function() {
         .once('end', function() { process.exit(); });
     });
 });
+
+gulp.task('test', ['lint:server', 'test:server']);
 
 /* Config Functions
  * ========================================
@@ -109,7 +117,7 @@ gulp.task('clean:dev', function(cb){
 
 gulp.task('lint:server', function() {
   return gulp.src(paths.server.scripts)
-    .pipe(jshint())
+    .pipe(jshint({ node: true }))
     .pipe(jshint.reporter('jshint-stylish'));
 });
 
