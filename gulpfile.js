@@ -8,7 +8,7 @@ var gulp        = require('gulp'),
     istanbul    = require('gulp-istanbul'),
     inject      = require('gulp-inject'),
     concat      = require('gulp-concat'),
-    sass        = require('gulp-ruby-sass'),
+    sass        = require('gulp-sass'),
     uglify      = require('gulp-uglify'),
     ngAnnotate  = require('gulp-ng-annotate'),
     rename      = require('gulp-rename'),
@@ -188,7 +188,7 @@ gulp.task('scripts:dist', function() { return buildScripts(paths.dest.dist, true
 
 function compileAppStyles() {
   return gulp.src(paths.client.stylesheets)
-    .pipe(sass({ sourcemap: false }));
+    .pipe(sass({ sourcemap: false, bundleExec: false }));
 }
 
 function concatenateStyles() {
@@ -257,7 +257,7 @@ gulp.task('index:dist', ['compile:dist'], function() { return compileIndex(paths
  */
 
 // start and watch the server
-gulp.task('server', function() {
+gulp.task('server', ['index:dev'], function() {
   nodemon({
     script: 'server/app.js',
     env: { NODE_ENV: 'development' }
@@ -265,7 +265,7 @@ gulp.task('server', function() {
 });
 
 // watch the client and restart for changes
-gulp.task('watch:client', function() {
+gulp.task('watch:client', ['server'], function() {
   gulp.watch(paths.client.all, ['client:restart']);
 });
 
