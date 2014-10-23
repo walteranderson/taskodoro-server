@@ -18,9 +18,10 @@ exports.index = function(req, res) {
 
   Task.find()
     .where('user').equals(req.user._id)
+    .populate('stack')
     .exec(function(err, tasks) {
       if (err) return handleError(res, err);
-      if (!tasks) return res.status(404);
+      if (!tasks) return res.status(404).end();
 
       return res.json(tasks);
     });
@@ -50,9 +51,10 @@ exports.show = function(req, res) {
 
   Task.findById(req.params.id)
     .where('user').equals(req.user._id)
+    .populate('stack')
     .exec(function(err, task) {
       if (err) return handleError(res, err);
-      if (!task) return res.status(404);
+      if (!task) return res.status(404).end();
 
       return res.json(task);
     });
@@ -69,7 +71,7 @@ exports.update = function(req, res) {
     .where('user').equals(req.user._id)
     .exec(function(err, task) {
       if (err) return handleError(err, res);
-      if (!task) return res.status(404);
+      if (!task) return res.status(404).end();
 
       // merge the task with the updated info
       var updated = _.merge(task, req.body);
@@ -79,6 +81,7 @@ exports.update = function(req, res) {
         res.json(task);
       });
     });
+
 };
 
 /**
@@ -89,7 +92,7 @@ exports.destroy = function(req, res) {
   Task.findById(req.params.id)
     .exec(function(err, task) {
       if (err) return handleError(res, err);
-      if (!task) return res.status(404);
+      if (!task) return res.status(404).end();
 
       task.remove(function(err) {
         if (err) return handleError(res, err);

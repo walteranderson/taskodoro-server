@@ -16,6 +16,10 @@ var TaskSchema = new Schema({
     type: String,
     ref: 'User',
     required: true
+  },
+  stack: {
+    type: Schema.Types.ObjectId,
+    ref: 'Stack'
   }
 });
 

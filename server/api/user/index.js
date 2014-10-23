@@ -10,6 +10,6 @@ router
   .get('/me', auth.check(), controller.me)
   .put('/:id/password', auth.check(), controller.changePassword)
   .get('/:id', auth.check(), controller.show)
-  .delete('/:id', auth.check(), controller.destroy);
+  .delete('/:id', auth.hasRole('admin'), controller.destroy);
 
 module.exports = router;
