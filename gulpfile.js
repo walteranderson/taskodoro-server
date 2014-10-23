@@ -8,7 +8,7 @@ var gulp        = require('gulp'),
     istanbul    = require('gulp-istanbul'),
     inject      = require('gulp-inject'),
     concat      = require('gulp-concat'),
-    sass        = require('gulp-sass'),
+    sass        = require('gulp-ruby-sass'),
     uglify      = require('gulp-uglify'),
     ngAnnotate  = require('gulp-ng-annotate'),
     rename      = require('gulp-rename'),
@@ -188,7 +188,7 @@ gulp.task('scripts:dist', function() { return buildScripts(paths.dest.dist, true
 
 function compileAppStyles() {
   return gulp.src(paths.client.stylesheets)
-    .pipe(sass());
+    .pipe(sass({ sourcemap: false }));
 }
 
 function concatenateStyles() {

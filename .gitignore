@@ -4,3 +4,4 @@ coverage
 client/bower_components
 client/.tmp
 public
+.sass-cache
