@@ -8,7 +8,8 @@ describe('User API', function() {
   var token;
   var loginUserData = {
     username: 'testUser',
-    password: 'testPassword'
+    password: 'testPassword',
+    role: 'admin'
   };
 
   // Login and save token
@@ -72,6 +73,8 @@ describe('User API', function() {
           done();
         });
     });
+
+
 
   });
 

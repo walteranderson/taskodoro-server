@@ -1,3 +1,7 @@
+/**
+ * Main Application File
+ */
+
 'use strict';
 
 // Set default node environment to development
@@ -18,7 +22,7 @@ require('./config/express')(app);
 require('./routes')(app);
 
 app.listen(config.server.port, function() {
-  console.log('Express server listening on port ' + config.server.port);
+  console.log('Express server listening on port %d in %s mode', config.server.port, app.get('env'));
 });
 
 exports = module.exports = app;

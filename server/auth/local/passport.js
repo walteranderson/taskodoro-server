@@ -1,3 +1,7 @@
+/**
+ * Local Authentication Setup
+ */
+
 'use strict';
 
 var passport      = require('passport'),

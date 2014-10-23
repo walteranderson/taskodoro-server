@@ -1,13 +1,21 @@
+/**
+ * Main Application Routes
+ */
+
 'use strict';
 
 var auth = require('./auth/auth.util');
 
 module.exports = function(app) {
-  app.use('/api/tasks', auth.ensureAuth(), require('./api/task'));
+
+  // API Routes
+  app.use('/api/tasks', auth.check(), require('./api/task'));
   app.use('/api/users', require('./api/user'));
+
+  // Authentication Routes
   app.use('/auth', require('./auth'));
 
-  // All other routes should redirect to the index.html
+  // Otherwise redirect to index.html
   app.route('/*').get(function(req, res) {
       res.sendFile(app.get('appPath') + '/index.html');
   });

@@ -5,11 +5,11 @@ var router     = require('express').Router(),
     auth       = require('../../auth/auth.util');
 
 router
-  .get('/', auth.ensureAuth(), controller.index)
+  .get('/', auth.hasRole('admin'), controller.index)
   .post('/', controller.create)
-  .get('/me', auth.ensureAuth(), controller.me)
-  .put('/:id/password', auth.ensureAuth(), controller.changePassword)
-  .get('/:id', auth.ensureAuth(), controller.show)
-  .delete('/:id', auth.ensureAuth(), controller.destroy);
+  .get('/me', auth.check(), controller.me)
+  .put('/:id/password', auth.check(), controller.changePassword)
+  .get('/:id', auth.check(), controller.show)
+  .delete('/:id', auth.check(), controller.destroy);
 
 module.exports = router;

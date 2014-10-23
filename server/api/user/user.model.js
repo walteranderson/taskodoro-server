@@ -9,7 +9,11 @@ var UserSchema = new Schema({
     type: String,
     required: true
   },
-  password: String
+  password: String,
+  role: {
+    type: String,
+    default: 'user'
+  }
 });
 
 UserSchema.pre('save', function(next) {
