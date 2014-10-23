@@ -23,7 +23,7 @@
 
     $scope.addTask = function(newTask) {
       var task = new Task({
-        text: newTask
+        name: newTask
       });
 
       task.$save(function(res) {

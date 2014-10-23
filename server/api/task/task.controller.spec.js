@@ -86,7 +86,7 @@ describe('Task API', function() {
    */
   describe('POST /api/tasks/', function() {
     var newTask = {
-      text: 'new task'
+      name: 'new task'
     };
 
     it('should return the created task on create', function(done) {
@@ -98,7 +98,7 @@ describe('Task API', function() {
         .end(function(err, res) {
           if (err) return done(err);
 
-          res.body.text.should.equal(newTask.text);
+          res.body.name.should.equal(newTask.name);
           res.body.user.should.equal(loggedInUser._id.toString());
           done();
         });
@@ -111,7 +111,7 @@ describe('Task API', function() {
    */
   describe('GET /api/tasks/:id', function() {
     var task = {
-      text: 'new task'
+      name: 'new task'
     };
 
     // add a new task for the logged in user
@@ -147,7 +147,7 @@ describe('Task API', function() {
           if (err) return done(err);
 
           should.exist(res.body);
-          res.body.text.should.equal(task.text);
+          res.body.name.should.equal(task.name);
           done();
         });
     });
@@ -159,7 +159,7 @@ describe('Task API', function() {
    */
   describe('PUT /api/tasks/:id', function() {
     var task = {
-      text: 'new task'
+      name: 'new task'
     };
 
     // add a new task for the logged in user
@@ -186,9 +186,9 @@ describe('Task API', function() {
         .end(done);
     });
 
-    it('should update the task text', function(done) {
+    it('should update the task name', function(done) {
       var newTask = {
-        text: 'updated'
+        name: 'updated'
       };
 
       request(app)
@@ -204,7 +204,7 @@ describe('Task API', function() {
               if (err) return done(err);
               (task === null).should.be.equal(false);
 
-              task.text.should.equal(newTask.text);
+              task.name.should.equal(newTask.name);
               done();
             });
         });
@@ -220,7 +220,7 @@ describe('Task API', function() {
 
     before(function(done) {
       deleteTask = new Task({
-        text: 'task',
+        name: 'task',
         'user': loggedInUser._id
       });
 

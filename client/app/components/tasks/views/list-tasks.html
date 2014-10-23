@@ -23,7 +23,7 @@
 
         <span class="row-content">
           <!-- task name -->
-          <a ui-sref="tasks.edit({ id: task._id })">{{ task.text }}</a>
+          <a ui-sref="tasks.edit({ id: task._id })">{{ task.name }}</a>
         </span>
 
         <!-- remove button -->
@@ -38,7 +38,7 @@
   <p>Completed</p>
 
   <div class="completedTasks" ng-repeat="task in tasks | filter: !task.completed">
-    <span class="task">{{ task.text }}</span>&nbsp;
+    <span class="task">{{ task.name }}</span>&nbsp;
     <a href="javaScript:void(0);" ng-click="deleteTask(task)">X</a>
   </div>
  -->
