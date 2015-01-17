@@ -17,9 +17,9 @@ var TaskSchema = new Schema({
     ref: 'User',
     required: true
   },
-  stack: {
-    type: Schema.Types.ObjectId,
-    ref: 'Stack'
+  tags: {
+    type: Array,
+    required: false
   }
 });
 

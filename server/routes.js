@@ -10,6 +10,7 @@ module.exports = function(app) {
 
   // API Routes
   app.use('/api/tasks', auth.check(), require('./api/task'));
+  app.use('/api/tags', auth.check(), require('./api/tag'));
   app.use('/api/users', require('./api/user'));
 
   // Authentication Routes
