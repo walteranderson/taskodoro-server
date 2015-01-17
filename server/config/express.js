@@ -19,6 +19,10 @@ module.exports = function(app) {
   app.set('port', config.server.port);
   app.set('domain', config.server.ip);
 
+  app.set('views', config.root + '/server/views');
+  app.engine('html', require('ejs').renderFile);
+  app.set('view engine', 'html');
+
   // app.use(favicon(__dirname + '/public/favicon.ico'));
 
   app.use(bodyParser.json());
