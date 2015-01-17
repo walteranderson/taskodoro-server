@@ -1,3 +1,1 @@
-# Express Application
-
-Building a full-stack Express application from the ground up.
+Building an API using Express JS
