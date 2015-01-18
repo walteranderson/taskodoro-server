@@ -15,26 +15,15 @@ exports.index = function(req, res) {
 
   // search for all tags
   Task.find({ tags: { $exists: true, $not: { $size: 0 } } })
+    .distinct('tags')
     .where('completed').equals(false)
-    .select('tags')
-    .exec(function(err, tasks) {
+    .exec(function(err, tags) {
       if (err) return handleError(res, err);
-      if (!tasks) return res.status(404).end();
+      if (!tags) return res.status(404).end();
 
-      return res.json(parseTags(tasks));
+      return res.json(tags);
     });
 };
-
-/**
- * parseTags
- * this should pull the tags from each task and merge them
- * into an array without any duplicates
- */
-function parseTags(tasks) {
-  // TODO
-  // var tags = _.map(tasks, function(task) { return task.tags; });
-  return null;
-}
 
 /**
  * searchQuery
