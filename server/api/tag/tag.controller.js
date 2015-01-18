@@ -30,9 +30,15 @@ exports.index = function(req, res) {
  * returns all tasks from a user if they contain a tag
  * in the query array
  */
-function searchQuery(req, res, q) {
-  // todo
-  return null;
+function searchQuery(req, res, query) {
+  Task.find({ tags: { $in: query } })
+    .where('completed').equals(false)
+    .exec(function(err, tasks) {
+      if (err) return handleError(res, err);
+      if (!tasks) return res.status(404).end();
+
+      return res.json(tasks);
+    });
 }
 
 /**
