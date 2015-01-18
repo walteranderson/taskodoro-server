@@ -5,6 +5,6 @@ var router     = require('express').Router(),
 
 // All routes protected by auth
 router
-  .get('/:tag', controller.show);
+  .get('/', controller.index);
 
 module.exports = router;

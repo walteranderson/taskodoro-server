@@ -1,3 +1,5 @@
+/*jshint expr: true*/
+
 var should  = require('should'),
     request = require('supertest'),
     Task    = require('../task/task.model'),
@@ -57,7 +59,7 @@ describe('Tag API', function() {
   /**
    * Index
    */
-  describe('GET /api/tags/:tag', function() {
+  describe('GET /api/tags', function() {
     var task = {
       name: 'testing testing',
       tags: ['thing1', 'thing2', 'thing3']
@@ -85,19 +87,35 @@ describe('Tag API', function() {
         .end(done);
     });
 
-    it('when authenticated, should respond with an array of tasks that have the searched tag', function(done) {
-      var tag = 'thing1';
+    it('when authenticated, it should respond with an array of all tags used by user', function(done) {
       request(app)
-        .get('/api/tags/' + tag)
+        .get('/api/tags')
         .set('authorization', 'Bearer ' + token)
         .expect(200)
         .expect('Content-Type', /json/)
         .end(function(err, res) {
           if (err) return done(err);
 
-          Array.isArray(res.body).should.equal(true);
+          res.body.should.be.an.Array;
+
+          res.body.tags.should.equal(task.tags);
           done();
         });
     });
+
+    // it('when authenticated, should respond with an array of tasks that have the searched tag', function(done) {
+    //   var tag = 'thing1';
+    //   request(app)
+    //     .get('/api/tags/' + tag)
+    //     .set('authorization', 'Bearer ' + token)
+    //     .expect(200)
+    //     .expect('Content-Type', /json/)
+    //     .end(function(err, res) {
+    //       if (err) return done(err);
+
+    //       Array.isArray(res.body).should.equal(true);
+    //       done();
+    //     });
+    // });
   });
 });
