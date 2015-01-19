@@ -12,4 +12,7 @@ var all = {
 };
 
 // merge both arrays together
-module.exports = _.merge(all, env[process.env.NODE_ENV || 'development']);
+module.exports = _.merge(
+  all,
+  require('./' + process.env.NODE_ENV + '.js' || 'development.js')
+);

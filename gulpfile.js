@@ -57,7 +57,7 @@ gulp.task('lint:server', function() {
 });
 
 // start and watch the server
-gulp.task('server', function() {
+gulp.task('server:run', function() {
   nodemon({
     script: paths.server.start,
     env: { NODE_ENV: 'development' }
@@ -68,4 +68,4 @@ gulp.task('server:restart', ['lint:server']);
 // Gulp Actions
 gulp.task('test', ['lint:server', 'test:server']);
 gulp.task('coverage', ['lint:server', 'test:coverage']);
-gulp.task('default', ['lint:server', 'server']);
+gulp.task('default', ['lint:server', 'server:run']);
