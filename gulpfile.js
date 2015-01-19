@@ -2,12 +2,14 @@ var gulp        = require('gulp'),
     nodemon     = require('gulp-nodemon'),
     jshint      = require('gulp-jshint'),
     mocha       = require('gulp-mocha'),
-    istanbul    = require('gulp-istanbul');
+    istanbul    = require('gulp-istanbul'),
+    open        = require('gulp-open');
 
 var paths = {
   server: {
-    scripts: ['server/*.js', 'server/**/*.js'],
-    tests: ['server/**/*.spec.js']
+    start: 'app/app.js',
+    scripts: ['app/*.js', 'app/**/*.js'],
+    tests: ['app/**/*.spec.js']
   }
 };
 
@@ -27,7 +29,7 @@ gulp.task('test:server', function() {
 });
 
 // Test Coverage
-gulp.task('coverage', function() {
+gulp.task('test:coverage', function() {
   process.env.NODE_ENV = 'test';
 
   gulp.src(paths.server.scripts)
@@ -40,50 +42,30 @@ gulp.task('coverage', function() {
           reporters: [ 'lcov', 'text', 'text-summary' ],
           reportOpts: { dir: './coverage' }
         }))
-        .once('end', function() { process.exit(); });
+        .once('end', function() {
+          gulp.src('./coverage/lcov-report/index.html')
+            .pipe(open());
+        });
     });
 });
 
-gulp.task('test', ['lint:server', 'test:server']);
-
-
-/* STEP 1 - Linting
- * ========================================
- * Linting for javascript errors
- * client js and server js
- * ========================================
- */
-
+// lint the server
 gulp.task('lint:server', function() {
   return gulp.src(paths.server.scripts)
     .pipe(jshint({ node: true }))
     .pipe(jshint.reporter('jshint-stylish'));
 });
 
-
-/* STEP 5 - Server & Watch
- * ========================================
- * Start backend server
- * Watch everything and reload on change
- * ========================================
- */
-
 // start and watch the server
 gulp.task('server', function() {
   nodemon({
-    script: 'server/app.js',
+    script: paths.server.start,
     env: { NODE_ENV: 'development' }
   }).on('change', ['server:restart']);
 });
-
-// Restart Tasks
 gulp.task('server:restart', ['lint:server']);
 
-
-/* STEP 6 - Build
- * ========================================
- * Build steps for development and production
- * ========================================
- */
-
+// Gulp Actions
+gulp.task('test', ['lint:server', 'test:server']);
+gulp.task('coverage', ['lint:server', 'test:coverage']);
 gulp.task('default', ['lint:server', 'server']);

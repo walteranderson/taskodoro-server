@@ -4,7 +4,7 @@
 
 'use strict';
 
-var config      = require('../config/environments'),
+var config      = require('../../config/environments'),
     User        = require('../api/user/user.model'),
     jwt         = require('jsonwebtoken'),
     compose     = require('composable-middleware'),

@@ -9,7 +9,7 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 var express  = require('express'),
     mongoose = require('mongoose'),
-    config   = require('./config/environments'),
+    config   = require('../config/environments'),
     app      = express();
 
 // connect to db
@@ -18,7 +18,7 @@ mongoose.connection.on('error', function () {
   console.log('mongodb connection error');
 });
 
-require('./config/express')(app);
+require('../config/express')(app);
 require('./routes')(app);
 
 app.listen(config.server.port, function() {
