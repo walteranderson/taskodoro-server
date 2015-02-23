@@ -8,6 +8,7 @@ describe('Task API', function() {
   var loggedInUser;
   var token;
   var loginUserData = {
+      email: 'email@example.com',
       username: 'testUser',
       password: 'testPassword'
   };

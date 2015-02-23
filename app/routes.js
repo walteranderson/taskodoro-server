@@ -18,6 +18,7 @@ module.exports = function(app) {
 
   // Otherwise redirect to index.html
   app.route('/*').get(function(req, res) {
-      res.sendFile(app.get('appPath') + '/index.html');
+      // res.sendFile(app.get('appPath') + '/index.html');
+      res.status(404).send();
   });
 };

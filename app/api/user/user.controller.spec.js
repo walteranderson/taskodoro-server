@@ -7,6 +7,7 @@ describe('User API', function() {
   var loggedInUser;
   var token;
   var loginUserData = {
+    email: 'email@example.com',
     username: 'testUser',
     password: 'testPassword',
     role: 'admin'
@@ -83,6 +84,7 @@ describe('User API', function() {
    */
   describe('POST /api/users/', function() {
     var newUser = {
+      email: 'email@example.com',
       username: 'newUser',
       password: 'newPassword'
     };
@@ -135,6 +137,7 @@ describe('User API', function() {
 
     before(function(done) {
       deleteUser = new User({
+        email: 'email@example.com',
         username: 'iWill',
         password: 'beDeleted'
       });

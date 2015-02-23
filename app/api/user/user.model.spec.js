@@ -3,6 +3,7 @@ var should  = require('should'),
     User    = require('./user.model');
 
 var newUser = new User({
+  email: 'email@example.com',
   username: 'username',
   password: 'password'
 });
@@ -43,6 +44,15 @@ describe('User Model', function() {
 
   it('should fail with no username', function(done) {
     newUser.username = '';
+
+    newUser.save(function(err) {
+      should.exist(err);
+      done();
+    });
+  });
+
+  it('should fail with no email', function(done) {
+    newUser.email = '';
 
     newUser.save(function(err) {
       should.exist(err);
