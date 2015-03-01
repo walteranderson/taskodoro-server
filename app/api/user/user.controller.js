@@ -18,6 +18,7 @@ var auth = require('../../auth/auth.util'),
 exports.index = function(req, res) {
 
   User.find()
+    .select('-__v -password')
     .exec(function(err, users) {
       if (err) return handleError(err, res);
       if (!users) return res.status(404);
@@ -50,6 +51,7 @@ exports.show = function(req, res) {
   var userId = req.params.id;
 
   User.findById(userId)
+    .select('-__v -password')
     .exec(function(err, user) {
       if (err) return handleError(err, res);
       if (!user) return res.status(404);
@@ -80,6 +82,7 @@ exports.me = function(req, res) {
   var userId = req.user._id;
 
   User.findById(userId)
+    .select('-__v -password')
     .exec(function(err, user) {
       if (err) return handleError(err, res);
       if (!user) return res.status(404);
